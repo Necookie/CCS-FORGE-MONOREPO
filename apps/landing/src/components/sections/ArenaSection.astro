@@ -70,7 +70,7 @@ const colorMap = {
     {cards.map((card, i) => {
       const c = colorMap[card.tagColor];
       return (
-        <div class={`bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:-translate-y-2 ${c.hoverBorder} ${c.hoverShadow} group flex flex-col gap-6 h-full shadow-sm dark:shadow-none ${i === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
+        <div class={`bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:-translate-y-2 ${c.hoverBorder} ${c.hoverShadow} group flex flex-col gap-6 h-full shadow-none ${i === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
           <div class={`inline-flex max-w-fit px-3 py-1 ${c.tagBg} rounded-full border ${c.tagBorder}`}>
             <span class={`font-mono text-[10px] uppercase ${c.tag} tracking-wider`}>{card.tag}</span>
           </div>
