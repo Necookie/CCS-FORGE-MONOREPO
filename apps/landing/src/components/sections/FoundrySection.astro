@@ -19,7 +19,7 @@ const players: Player[] = [
 <section id="foundry" class="max-w-7xl mx-auto px-4 md:px-8 w-full scroll-mt-24">
   <div class="flex flex-col items-center text-center gap-4 mb-16 px-4">
     <span class="font-mono text-xs uppercase tracking-[0.15em] text-purple-600 dark:text-[#8A2BE2]">[ LIVE LEADERBOARD ]</span>
-    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white mb-2">The Foundry.</h2>
+    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white mb-2 leading-tight">The Foundry.</h2>
     <p class="text-slate-600 dark:text-[#A0A0B0] max-w-2xl text-base md:text-lg leading-relaxed">
       Ten Code Bearers. A growing ecosystem. See who converts continuous effort into digital capital through our Badge Engine.
     </p>
@@ -37,7 +37,7 @@ const players: Player[] = [
     {players.map((p) => (
       <div class={`flex flex-col md:grid md:grid-cols-12 gap-4 px-6 py-5 items-center rounded-2xl sm:rounded-3xl transition-all duration-300
         ${p.isTop
-          ? 'bg-slate-50 dark:bg-[#2D2E42] border border-purple-500/30 dark:border-[#8A2BE2]/30 shadow-[0_8px_30px_rgba(0,229,255,0.08)] md:-translate-y-1'
+          ? 'bg-slate-50 dark:bg-[#2D2E42] border border-purple-500/30 dark:border-[#8A2BE2]/30 shadow-[0_8px_30px_rgba(138,43,226,0.08)] md:-translate-y-1'
           : 'bg-white dark:bg-[#1A1A24] border border-transparent hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:border-slate-200 dark:hover:border-white/5'
         }`}>
         <!-- Rank -->
@@ -68,10 +68,10 @@ const players: Player[] = [
         <div class="col-span-3 flex gap-2 w-full md:w-auto mt-4 md:mt-0 justify-start">
           {p.isTop ? (
             <>
-              <div class="w-8 h-8 rounded-lg bg-cyan-500/10 dark:bg-[#00E5FF]/10 border border-cyan-500/40 dark:border-[#00E5FF]/40 flex items-center justify-center text-cyan-600 dark:text-[#00E5FF] shadow-[0_0_12px_rgba(138,43,226,0.15)]">
+              <div class="w-8 h-8 rounded-lg bg-cyan-500/10 dark:bg-[#00E5FF]/10 border border-cyan-500/40 dark:border-[#00E5FF]/40 flex items-center justify-center text-cyan-600 dark:text-[#00E5FF] shadow-[0_0_12px_rgba(0,229,255,0.15)]">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               </div>
-              <div class="w-8 h-8 rounded-lg bg-purple-500/10 dark:bg-[#8A2BE2]/10 border border-purple-500/40 dark:border-[#8A2BE2]/40 flex items-center justify-center text-purple-600 dark:text-[#8A2BE2] shadow-[0_0_12px_rgba(0,229,255,0.15)]">
+              <div class="w-8 h-8 rounded-lg bg-purple-500/10 dark:bg-[#8A2BE2]/10 border border-purple-500/40 dark:border-[#8A2BE2]/40 flex items-center justify-center text-purple-600 dark:text-[#8A2BE2] shadow-[0_0_12px_rgba(138,43,226,0.15)]">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
               </div>
               <div class="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/40 flex items-center justify-center text-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.15)]">
