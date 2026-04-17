@@ -63,14 +63,14 @@ const getTypeColor = (type: string) => {
 
 <div class="flex flex-col gap-6 w-full">
   
-  <div class="flex items-center gap-4 border-b border-white/5 pb-4">
-     <h2 class="text-xl font-bold tracking-tight text-white leading-none">Global Transmissions</h2>
-     <div class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-400 uppercase leading-none">Live Feed</div>
+  <div class="flex items-center gap-4 border-b border-slate-200 dark:border-white/5 pb-4">
+     <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-none">Global Transmissions</h2>
+     <div class="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-[#A0A0B0] uppercase leading-none">Live Feed</div>
   </div>
 
   <div class="flex flex-col gap-4 relative">
      <!-- Vertical timeline trace -->
-     <div class="absolute left-[19px] top-4 bottom-4 w-px bg-white/5 z-0 hidden sm:block"></div>
+     <div class="absolute left-[19px] top-4 bottom-4 w-px bg-slate-100 dark:bg-white/5 z-0 hidden sm:block"></div>
      
      {mockFeeds.map((feed) => {
         const typeStyle = getTypeColor(feed.type);
@@ -78,18 +78,18 @@ const getTypeColor = (type: string) => {
           <div class="relative z-10 flex gap-4 sm:gap-6 group">
              
              <!-- Avatar -->
-             <div class="w-10 h-10 rounded-[1rem] bg-[#252634] border border-white/10 shrink-0 flex items-center justify-center overflow-hidden hover:border-white/30 transition-colors cursor-pointer z-10 shadow-sm relative">
+             <div class="w-10 h-10 rounded-[1rem] bg-white dark:bg-[#252634] border border-slate-300 dark:border-white/10 shrink-0 flex items-center justify-center overflow-hidden hover:border-slate-300 dark:hover:border-white/30 transition-colors cursor-pointer z-10 shadow-sm relative">
                 <img src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${feed.avatarSeed}`} alt={feed.name} class="w-full h-full object-contain" />
              </div>
 
              <!-- Content Card -->
-             <div class="flex-grow rounded-[1.5rem] bg-transparent sm:bg-[#252634]/50 sm:group-hover:bg-[#252634] sm:border sm:border-white/5 sm:group-hover:border-white/10 p-1 sm:p-4 transition-all duration-300">
+             <div class="flex-grow rounded-[1.5rem] bg-transparent sm:bg-slate-100 dark:bg-white/50 dark:bg-white dark:bg-[#252634]/50 sm:group-hover:bg-white dark:bg-[#252634] sm:border sm:border-slate-200 dark:border-white/5 sm:group-hover:border-slate-300 dark:border-white/10 p-1 sm:p-4 transition-all duration-300">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                    
-                   <div class="text-sm text-slate-300 leading-tight">
-                      <span class="font-bold text-white hover:text-purple-400 cursor-pointer transition-colors inline-block mr-1">{feed.name}</span>
+                   <div class="text-sm text-slate-800 dark:text-slate-300 leading-tight">
+                      <span class="font-bold text-slate-900 dark:text-white hover:text-purple-400 cursor-pointer transition-colors inline-block mr-1">{feed.name}</span>
                       <span class="text-slate-500 mr-1">{feed.action}</span>
-                      <span class="font-bold text-white hover:text-cyan-400 cursor-pointer transition-colors">{feed.target}</span>
+                      <span class="font-bold text-slate-900 dark:text-white hover:text-cyan-400 cursor-pointer transition-colors">{feed.target}</span>
                    </div>
                    
                    <span class="text-[10px] uppercase font-mono text-slate-600 tracking-widest shrink-0">{feed.time}</span>
@@ -108,7 +108,7 @@ const getTypeColor = (type: string) => {
         )
      })}
      
-     <button class="w-full py-4 mt-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-300 transition-colors border-2 border-dashed border-white/5 rounded-[1.5rem] hover:border-white/10 bg-transparent">
+     <button class="w-full py-4 mt-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:text-slate-300 transition-colors border-2 border-dashed border-slate-200 dark:border-white/5 rounded-[1.5rem] hover:border-slate-300 dark:border-white/10 bg-transparent">
         Load Older Transmissions
      </button>
   </div>
