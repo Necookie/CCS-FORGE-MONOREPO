@@ -1,0 +1,102 @@
+---
+// FoundrySection — Live Leaderboard (static shell, React island slot)
+interface Player {
+  seed: string;
+  skinColor: string;
+  rank: string;
+  name: string;
+  handle: string;
+  xp: string;
+  isTop: boolean;
+}
+
+const players: Player[] = [
+  { seed: 'Alex', skinColor: 'f8d25c', rank: '01', name: 'Alex Chen', handle: '@alexc_dev', xp: '14,250 XP', isTop: true },
+  { seed: 'Sam', skinColor: 'd08B5B', rank: '02', name: 'Sam Rivera', handle: '@srivera', xp: '12,100 XP', isTop: false },
+];
+---
+
+<section id="foundry" class="max-w-7xl mx-auto px-4 md:px-8 w-full scroll-mt-24">
+  <div class="flex flex-col items-center text-center gap-4 mb-16 px-4">
+    <span class="font-mono text-xs uppercase tracking-[0.15em] text-cyan-600 dark:text-[#00E5FF]">[ LIVE LEADERBOARD ]</span>
+    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white mb-2">The Foundry.</h2>
+    <p class="text-slate-600 dark:text-[#A0A0B0] max-w-2xl text-base md:text-lg leading-relaxed">
+      Ten architects. A growing ecosystem. See who converts continuous effort into digital capital through our Badge Engine.
+    </p>
+  </div>
+
+  <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-8 max-w-4xl mx-auto flex flex-col gap-3 shadow-sm dark:shadow-none">
+    <!-- Table header -->
+    <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 font-mono text-[10px] text-slate-500 dark:text-[#5C5C70] uppercase tracking-[0.2em] border-b border-slate-100 dark:border-white/5 mb-2">
+      <div class="col-span-1">Rank</div>
+      <div class="col-span-5">Operative</div>
+      <div class="col-span-3">Core Badges</div>
+      <div class="col-span-3 text-right">Capital</div>
+    </div>
+
+    {players.map((p) => (
+      <div class={`flex flex-col md:grid md:grid-cols-12 gap-4 px-6 py-5 items-center rounded-2xl sm:rounded-3xl transition-all duration-300
+        ${p.isTop
+          ? 'bg-slate-50 dark:bg-[#2D2E42] border border-cyan-500/30 dark:border-[#00E5FF]/30 shadow-[0_8px_30px_rgba(0,229,255,0.08)] md:-translate-y-1'
+          : 'bg-white dark:bg-[#1A1A24] border border-transparent hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:border-slate-200 dark:hover:border-white/5'
+        }`}>
+        <!-- Rank -->
+        <div class={`col-span-1 font-mono hidden md:block ${p.isTop ? 'text-2xl text-cyan-600 dark:text-[#00E5FF] font-bold' : 'text-xl text-slate-400 dark:text-[#A0A0B0]'}`}>{p.rank}</div>
+
+        <!-- Player -->
+        <div class="col-span-5 flex items-center gap-4 w-full md:w-auto mt-2 md:mt-0">
+          <div class="relative">
+            <img
+              src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${p.seed}&skinColor=${p.skinColor}`}
+              alt={`${p.name} avatar`}
+              class={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-100 dark:bg-[#1A1A24] ${p.isTop ? 'border-2 border-cyan-500 dark:border-[#00E5FF]' : 'border border-slate-200 dark:border-white/10'}`}
+              loading="lazy"
+            />
+            <div class={`absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-[#1A1A24] border rounded-full flex items-center justify-center font-mono text-[8px]
+              ${p.isTop
+                ? 'border-cyan-500 dark:border-[#00E5FF] text-cyan-600 dark:text-[#00E5FF] shadow-[0_0_8px_#00E5FF]'
+                : 'border-slate-200 dark:border-white/20 text-slate-500 dark:text-[#A0A0B0]'
+              }`}>{parseInt(p.rank)}</div>
+          </div>
+          <div>
+            <div class="text-slate-900 dark:text-white font-medium text-lg">{p.name}</div>
+            <div class={`font-mono text-[10px] sm:text-xs ${p.isTop ? 'text-cyan-600 dark:text-[#00E5FF]' : 'text-slate-500 dark:text-[#5C5C70]'}`}>{p.handle}</div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div class="col-span-3 flex gap-2 w-full md:w-auto mt-4 md:mt-0 justify-start">
+          {p.isTop ? (
+            <>
+              <div class="w-8 h-8 rounded-lg bg-purple-500/10 dark:bg-[#8A2BE2]/10 border border-purple-500/40 dark:border-[#8A2BE2]/40 flex items-center justify-center text-purple-600 dark:text-[#8A2BE2] shadow-[0_0_12px_rgba(138,43,226,0.15)]">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-cyan-500/10 dark:bg-[#00E5FF]/10 border border-cyan-500/40 dark:border-[#00E5FF]/40 flex items-center justify-center text-cyan-600 dark:text-[#00E5FF] shadow-[0_0_12px_rgba(0,229,255,0.15)]">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/40 flex items-center justify-center text-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.15)]">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              </div>
+            </>
+          ) : (
+            <div class="w-8 h-8 rounded-lg bg-rose-500/10 dark:bg-[#FF6B6B]/10 border border-rose-500/30 dark:border-[#FF6B6B]/30 flex items-center justify-center text-rose-600 dark:text-[#FF6B6B]">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+            </div>
+          )}
+        </div>
+
+        <!-- XP -->
+        <div class="col-span-3 text-right w-full md:w-auto mt-2 md:mt-0 flex md:block justify-between items-center border-t border-slate-200 dark:border-white/5 md:border-none pt-4 md:pt-0">
+          <span class="md:hidden font-mono text-xs text-slate-500 dark:text-[#5C5C70] uppercase">Capital:</span>
+          <span class={`font-mono text-lg font-bold ${p.isTop ? 'text-cyan-600 dark:text-[#00E5FF]' : 'text-slate-900 dark:text-white font-semibold'}`}>{p.xp}</span>
+        </div>
+      </div>
+    ))}
+
+    <div class="mt-8 text-center">
+      <button class="text-xs font-mono text-slate-600 dark:text-[#A0A0B0] hover:text-slate-900 dark:hover:text-white transition-all uppercase tracking-widest px-6 py-3 rounded-full border border-transparent hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5">
+        Scan Full Roster
+      </button>
+    </div>
+  </div>
+</section>
