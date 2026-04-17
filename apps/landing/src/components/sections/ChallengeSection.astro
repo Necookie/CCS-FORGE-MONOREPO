@@ -1,0 +1,76 @@
+---
+// ChallengeSection — Flexible Modalities with mock UI cards
+interface Modality {
+  label: string;
+  color: 'purple' | 'teal' | 'coral';
+}
+
+const modalities: Modality[] = [
+  { label: 'Algorithm Battles', color: 'purple' },
+  { label: 'Quiz Scrambles', color: 'teal' },
+  { label: 'Campus Scavenger Hunts', color: 'coral' },
+];
+
+const dotColor = {
+  purple: { dot: 'bg-[#8A2BE2]', border: 'border-purple-500/40 dark:border-[#8A2BE2]/40', hoverBg: 'group-hover:bg-[#8A2BE2]/10', glow: 'group-hover:shadow-[0_0_8px_#8A2BE2]' },
+  teal: { dot: 'bg-[#00E5FF]', border: 'border-cyan-500/40 dark:border-[#00E5FF]/40', hoverBg: 'group-hover:bg-[#00E5FF]/10', glow: 'group-hover:shadow-[0_0_8px_#00E5FF]' },
+  coral: { dot: 'bg-[#FF6B6B]', border: 'border-rose-500/40 dark:border-[#FF6B6B]/40', hoverBg: 'group-hover:bg-[#FF6B6B]/10', glow: 'group-hover:shadow-[0_0_8px_#FF6B6B]' },
+};
+---
+
+<section class="max-w-7xl mx-auto px-4 md:px-8 w-full">
+  <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 lg:gap-16 shadow-none">
+    <!-- Decorative gradient -->
+    <div class="absolute right-0 top-0 w-[80%] lg:w-1/2 h-full bg-gradient-to-l from-[#8A2BE2]/[0.05] dark:from-[#8A2BE2]/[0.03] to-transparent pointer-events-none"></div>
+
+    <!-- Left: Heading + modalities list -->
+    <div class="flex flex-col gap-6 lg:w-[45%] relative z-10">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white mb-2 leading-tight">Flexible Modalities.</h2>
+      <p class="text-slate-600 dark:text-[#A0A0B0] text-base md:text-lg leading-relaxed">
+        Adaptable trials engineered to test, verify, and reward your continuous engagement within the ecosystem.
+      </p>
+      <div class="mt-6 flex flex-col gap-4">
+        {modalities.map(({ label, color }) => {
+          const c = dotColor[color];
+          return (
+            <div class="flex items-center gap-4 group">
+              <div class={`w-8 h-8 rounded-xl bg-slate-50 dark:bg-[#1A1A24] border ${c.border} flex items-center justify-center ${c.hoverBg} transition-colors`}>
+                <span class={`w-2.5 h-2.5 rounded-full ${c.dot} ${c.glow}`}></span>
+              </div>
+              <span class="text-sm font-semibold uppercase tracking-widest text-slate-600 dark:text-[#A0A0B0] group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                {label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Right: Mock challenge cards -->
+    <div class="lg:w-[55%] w-full relative z-10 flex flex-col gap-4">
+      <!-- Verified card -->
+      <div class="bg-slate-50 dark:bg-[#1A1A24] border border-purple-500/30 dark:border-[#8A2BE2]/30 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-[0_8px_30px_rgba(138,43,226,0.08)] transform lg:translate-x-8 hover:-translate-y-1 transition-transform cursor-default">
+        <div class="mb-4 sm:mb-0">
+          <h4 class="text-slate-900 dark:text-white font-medium text-lg mb-1.5">DSA Graph Theory Quiz</h4>
+          <span class="font-mono text-[10px] sm:text-xs text-slate-500 dark:text-[#A0A0B0] uppercase tracking-wider">ID: CF-8812</span>
+        </div>
+        <div class="sm:text-right flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 sm:gap-1">
+          <div class="font-mono text-sm sm:text-base text-purple-600 dark:text-[#8A2BE2] font-bold">+50 XP</div>
+          <span class="text-[10px] text-emerald-700 dark:text-[#2D6A4F] uppercase tracking-[0.2em] font-mono whitespace-nowrap">Challenge Verified</span>
+        </div>
+      </div>
+
+      <!-- Pending card -->
+      <div class="bg-slate-50 dark:bg-[#1A1A24] border border-slate-200 dark:border-white/5 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between opacity-80 dark:opacity-60 hover:opacity-100 transition-opacity transform lg:-translate-x-4 cursor-default">
+        <div class="mb-4 sm:mb-0">
+          <h4 class="text-slate-900 dark:text-white font-medium text-lg mb-1.5">React Hooks Component</h4>
+          <span class="font-mono text-[10px] sm:text-xs text-slate-500 dark:text-[#A0A0B0] uppercase tracking-wider">ID: CF-8813</span>
+        </div>
+        <div class="sm:text-right flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 sm:gap-1">
+          <div class="font-mono text-sm sm:text-base text-slate-900 dark:text-white font-bold mb-1">+100 XP</div>
+          <span class="text-[10px] text-amber-600 dark:text-[#F4A261] uppercase tracking-[0.2em] font-mono whitespace-nowrap">Pending Review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

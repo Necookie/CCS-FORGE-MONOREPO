@@ -1,0 +1,76 @@
+---
+// apps/platform/src/components/dashboard/OperativeSnapshot.astro
+// Right-rail profile card: Level, XP, Day Streak, CTA.
+// Accepts props to remain data-agnostic (DB can be wired later).
+
+interface Props {
+  name: string;
+  level: number;
+  xpBalance: string;
+  streak: number;
+  avatarSeed: string;
+}
+
+const { name, level, xpBalance, streak, avatarSeed } = Astro.props;
+
+interface StatItem {
+  label: string;
+  value: string;
+  color: string;
+  icon?: string; // emoji or indicator
+}
+
+const stats: StatItem[] = [
+  { label: 'XP Balance', value: xpBalance, color: 'text-purple-600 dark:text-purple-400' },
+  { label: 'Day Streak',  value: `${streak}`,  color: 'text-orange-600 dark:text-orange-400', icon: '🔥' },
+];
+---
+
+<div class="rounded-[1.5rem] bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 p-5 flex flex-col gap-5 relative overflow-hidden group shadow-sm">
+  
+  <!-- Ambient glow accent (non-interactive) -->
+  <div class="absolute top-0 right-0 w-36 h-36 bg-purple-500/8 dark:bg-purple-500/10 rounded-full blur-[50px] -translate-y-1/2 translate-x-1/2 pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Avatar + Name -->
+  <div class="flex items-center gap-4 relative z-10">
+    <div class="relative w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#1A1A24] border border-purple-500/30 group-hover:border-purple-500/60 transition-colors shadow-[0_0_15px_rgba(138,43,226,0.12)]">
+      <img
+        src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${avatarSeed}`}
+        alt={`${name}'s avatar`}
+        class="w-full h-full object-contain p-1"
+        loading="lazy"
+      />
+      <!-- Level Badge -->
+      <div class="absolute -bottom-1.5 -right-1.5 px-2 py-0.5 bg-purple-600 rounded-lg text-[9px] font-bold tracking-widest border border-white dark:border-[#252634] shadow-sm leading-none text-white" aria-label={`Level ${level}`}>
+        LVL {level}
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <h2 class="font-bold text-base leading-tight">{name}</h2>
+      <span class="text-xs text-slate-500 dark:text-slate-400 leading-tight mt-0.5">Class 3 Architect</span>
+    </div>
+  </div>
+
+  <!-- Stats Grid (O(n) loop, single source of truth) -->
+  <div class="grid grid-cols-2 gap-3 relative z-10">
+    {stats.map((stat) => (
+      <div class="flex flex-col p-3 rounded-xl bg-slate-50 dark:bg-[#1A1A24]/70 border border-slate-200 dark:border-white/5">
+        <span class="text-[9px] uppercase font-bold text-slate-400 tracking-widest mb-1.5 leading-none flex items-center gap-1">
+          {stat.icon && <span aria-hidden="true">{stat.icon}</span>}
+          {stat.label}
+        </span>
+        <span class={`text-sm font-mono font-bold ${stat.color}`}>{stat.value}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Profile CTA -->
+  <button
+    type="button"
+    class="w-full py-2.5 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 font-bold text-xs uppercase tracking-widest border border-purple-500/20 hover:bg-purple-600 hover:text-white hover:border-purple-600 hover:shadow-[0_0_15px_rgba(138,43,226,0.3)] transition-all duration-200 relative z-10 hover:-translate-y-0.5"
+  >
+    View Master Profile
+  </button>
+
+</div>

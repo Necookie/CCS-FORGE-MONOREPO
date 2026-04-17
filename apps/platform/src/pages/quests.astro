@@ -1,0 +1,16 @@
+---
+// apps/platform/src/pages/quests.astro
+import PlatformLayout from '../layouts/PlatformLayout.astro';
+---
+
+<PlatformLayout title="Quests" currentPath="/quests">
+  <div class="flex-grow flex items-center justify-center border-2 border-dashed border-slate-200 dark:border-white/5 rounded-[2.5rem] bg-slate-100 dark:bg-white/50 dark:bg-white dark:bg-[#252634]/50 p-24 w-full">
+    <div class="text-center flex flex-col items-center gap-4">
+      <div class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+      </div>
+      <h2 class="text-2xl font-bold tracking-tighter">Quest Repository</h2>
+      <p class="text-slate-600 dark:text-[#A0A0B0] text-sm max-w-sm">The full list of active challenges, skill trees, and submission portals will be deployed here in Phase 2.</p>
+    </div>
+  </div>
+</PlatformLayout>

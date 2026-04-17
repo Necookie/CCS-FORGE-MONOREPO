@@ -1,0 +1,16 @@
+---
+// apps/platform/src/pages/armory.astro
+import PlatformLayout from '../layouts/PlatformLayout.astro';
+---
+
+<PlatformLayout title="The Armory" currentPath="/armory">
+  <div class="flex-grow flex items-center justify-center border-2 border-dashed border-slate-200 dark:border-white/5 rounded-[2.5rem] bg-slate-100 dark:bg-white/50 dark:bg-white dark:bg-[#252634]/50 p-24 w-full">
+    <div class="text-center flex flex-col items-center gap-4">
+      <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+      </div>
+      <h2 class="text-2xl font-bold tracking-tighter">Achievement Grid</h2>
+      <p class="text-slate-600 dark:text-[#A0A0B0] text-sm max-w-sm">The full grid of secured and locked badges will be constructed here, alongside mission prerequisites.</p>
+    </div>
+  </div>
+</PlatformLayout>

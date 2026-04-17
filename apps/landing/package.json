@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "landing",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/node": "latest",
     "@astrojs/react": "latest",
     "@forge/config-tailwind": "workspace:*",
+    "@forge/database": "workspace:*",
     "@forge/ui": "workspace:*",
     "@forge/utils": "workspace:*",
     "@tailwindcss/vite": "^4.2.2",

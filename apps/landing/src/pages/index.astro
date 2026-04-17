@@ -1,0 +1,82 @@
+---
+/**
+ * apps/platform/src/pages/index.astro
+ *
+ * Landing page orchestrator.
+ * Each section is an isolated Astro component — max 300 lines each.
+ * Zero JS payloads on static sections; React islands used only where interactivity is required.
+ */
+import '../global.css';
+import BaseHead        from '../components/BaseHead.astro';
+import Navbar          from '../components/Navbar.astro';
+import SiteFooter      from '../components/SiteFooter.astro';
+
+import HeroSection     from '../components/sections/HeroSection.astro';
+import GenesisSection  from '../components/sections/GenesisSection.astro';
+import ArenaSection    from '../components/sections/ArenaSection.astro';
+import ChallengeSection from '../components/sections/ChallengeSection.astro';
+import FoundrySection  from '../components/sections/FoundrySection.astro';
+import ShowcaseSection from '../components/sections/ShowcaseSection.astro';
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead />
+  </head>
+  <body class="bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white overflow-x-hidden transition-colors duration-300">
+
+    <Navbar />
+
+    <main class="flex flex-col gap-24 md:gap-32 w-full pb-32">
+      <HeroSection />
+      <GenesisSection />
+      <ArenaSection />
+      <ChallengeSection />
+      <FoundrySection />
+      <ShowcaseSection />
+    </main>
+
+    <SiteFooter />
+
+    <!-- Slide to bottom arrow -->
+    <a id="floating-scroll-btn" href="#footer" aria-label="Scroll to bottom" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-white/80 dark:bg-[#252634]/80 backdrop-blur-md border border-slate-200 dark:border-white/5 flex items-center justify-center text-slate-500 dark:text-[#A0A0B0] hover:text-purple-600 dark:hover:text-[#8A2BE2] hover:border-purple-500/50 dark:hover:border-[#8A2BE2]/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(138,43,226,0.3)] z-50 group">
+      <svg id="floating-scroll-icon" class="w-6 h-6 transition-transform duration-300 group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('floating-scroll-btn');
+        const icon = document.getElementById('floating-scroll-icon');
+        const footer = document.getElementById('footer');
+
+        if (!btn || !icon || !footer) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          const isAtBottom = entries[0].isIntersecting;
+          
+          if (isAtBottom) {
+            // At the bottom: link to top, rotate arrow up
+            btn.setAttribute('href', '#');
+            btn.setAttribute('aria-label', 'Scroll to top');
+            icon.classList.remove('group-hover:translate-y-1');
+            icon.classList.add('rotate-180', 'group-hover:-translate-y-1');
+          } else {
+            // Not at the bottom: link to footer, arrow points down
+            btn.setAttribute('href', '#footer');
+            btn.setAttribute('aria-label', 'Scroll to bottom');
+            icon.classList.remove('rotate-180', 'group-hover:-translate-y-1');
+            icon.classList.add('group-hover:translate-y-1');
+          }
+        }, {
+          rootMargin: '100px', // trigger a bit before footer hits the screen
+          threshold: 0
+        });
+
+        observer.observe(footer);
+      });
+    </script>
+
+  </body>
+</html>

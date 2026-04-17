@@ -1,0 +1,85 @@
+---
+// ArenaSection — Activities & Wins gallery
+interface ArenaCard {
+  tag: string;
+  tagColor: 'coral' | 'purple' | 'teal';
+  title: string;
+  body: string;
+  label: string;
+}
+
+const cards: ArenaCard[] = [
+  {
+    tag: '[ RANK: SECURED ]',
+    tagColor: 'coral',
+    title: 'CodeChum Nationals 2025',
+    body: "Our legacy forged in competitive programming against the nation's best. The foundation of our competitive spirit.",
+    label: 'coral',
+  },
+  {
+    tag: '[ STATUS: ACTIVE ]',
+    tagColor: 'purple',
+    title: 'Phase 2: Attendance Quests',
+    body: 'Turn physical presence into digital capital through proximity verifications and real-world participation drops.',
+    label: 'purple',
+  },
+  {
+    tag: '[ BROADCASTING ]',
+    tagColor: 'teal',
+    title: 'Global Announcements',
+    body: 'Live cross-cohort transmissions directly to your dashboard. High-priority intelligence shared network-wide.',
+    label: 'teal',
+  },
+];
+
+const colorMap = {
+  coral: {
+    tag: 'text-rose-600 dark:text-[#FF6B6B]',
+    tagBg: 'bg-rose-500/10 dark:bg-[#FF6B6B]/10',
+    tagBorder: 'border-rose-500/20 dark:border-[#FF6B6B]/20',
+    hoverBorder: 'hover:border-rose-500/40 dark:hover:border-[#FF6B6B]/40',
+    hoverTitle: 'group-hover:text-rose-500 dark:group-hover:text-[#FF6B6B]',
+    hoverShadow: 'hover:shadow-[0_8px_32px_rgba(255,107,107,0.15)]',
+  },
+  purple: {
+    tag: 'text-purple-600 dark:text-[#8A2BE2]',
+    tagBg: 'bg-purple-500/10 dark:bg-[#8A2BE2]/10',
+    tagBorder: 'border-purple-500/20 dark:border-[#8A2BE2]/20',
+    hoverBorder: 'hover:border-purple-500/40 dark:hover:border-[#8A2BE2]/40',
+    hoverTitle: 'group-hover:text-purple-500 dark:group-hover:text-[#8A2BE2]',
+    hoverShadow: 'hover:shadow-[0_8px_32px_rgba(138,43,226,0.15)]',
+  },
+  teal: {
+    tag: 'text-cyan-600 dark:text-[#00E5FF]',
+    tagBg: 'bg-cyan-500/10 dark:bg-[#00E5FF]/10',
+    tagBorder: 'border-cyan-500/20 dark:border-[#00E5FF]/20',
+    hoverBorder: 'hover:border-cyan-500/40 dark:hover:border-[#00E5FF]/40',
+    hoverTitle: 'group-hover:text-cyan-500 dark:group-hover:text-[#00E5FF]',
+    hoverShadow: 'hover:shadow-[0_8px_32px_rgba(0,229,255,0.15)]',
+  },
+};
+---
+
+<section id="arena" class="max-w-7xl mx-auto px-4 md:px-8 w-full scroll-mt-24">
+  <div class="flex flex-col gap-4 mb-12 sm:mb-16">
+    <span class="font-mono text-xs uppercase tracking-[0.15em] text-cyan-600 dark:text-[#00E5FF]">[ LEGACY STATUS: ACTIVE ]</span>
+    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white leading-tight">The Arena.</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+    {cards.map((card, i) => {
+      const c = colorMap[card.tagColor];
+      return (
+        <div class={`bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:-translate-y-2 ${c.hoverBorder} ${c.hoverShadow} group flex flex-col gap-6 h-full shadow-none ${i === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
+          <div class={`inline-flex max-w-fit px-3 py-1 ${c.tagBg} rounded-full border ${c.tagBorder}`}>
+            <span class={`font-mono text-[10px] uppercase ${c.tag} tracking-wider`}>{card.tag}</span>
+          </div>
+          <div class="flex-grow">
+            <h3 class={`text-xl md:text-2xl font-semibold text-slate-900 dark:text-white mb-3 ${c.hoverTitle} transition-colors`}>{card.title}</h3>
+            <p class="text-slate-600 dark:text-[#A0A0B0] text-sm md:text-base leading-relaxed">{card.body}</p>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>

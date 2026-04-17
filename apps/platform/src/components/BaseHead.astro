@@ -1,0 +1,47 @@
+---
+// apps/platform/src/components/BaseHead.astro
+// Shared <head> for the platform app — fonts, FOUC prevention, theme init, scrollbar styles
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="CCS Forge Platform — Operative Command Center for College of Computer Studies." />
+
+<!-- Preconnect for font performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Theme init: inline sync to PREVENT FOUC -->
+<script>
+  (() => {
+    const stored = localStorage.getItem('theme');
+    const theme = stored ?? 'light';
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    if (!stored) localStorage.setItem('theme', 'light');
+  })();
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .font-mono, code, pre {
+    font-family: 'Fira Code', monospace;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+
+  /* Themed scrollbar */
+  ::-webkit-scrollbar         { width: 6px; }
+  ::-webkit-scrollbar-track   { background: #f8fafc; }
+  .dark ::-webkit-scrollbar-track { background: #1A1A24; }
+  ::-webkit-scrollbar-thumb   { background: #cbd5e1; border-radius: 4px; }
+  .dark ::-webkit-scrollbar-thumb { background: #5C5C70; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover    { background: #94a3b8; }
+  .dark ::-webkit-scrollbar-thumb:hover { background: #A0A0B0; }
+</style>
