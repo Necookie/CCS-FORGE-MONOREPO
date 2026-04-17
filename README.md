@@ -22,8 +22,8 @@ We started in a chaos of fragmented group chats, lost announcements, and untrack
 This project is structured as a high-performance monorepo utilizing **Turborepo** and **pnpm** for workspace efficiency and lightning-fast build caching. 
 
 ### 🌌 Applications (`/apps`)
-- **`platform`** (formerly web): Top-layer landing page and web application. Engineered for SEO, maximum aesthetic impact, and zero-JS payloads using static Astro chapters. Incorporates isolated **React 19 Islands** for specific interactive systems (e.g., live Leaderboards, Supabase Auth flows).
-- **`dashboard`**: Personalized student/admin data portal leveraging **Astro SSR** and Prisma to serve authenticated data layers and statistics seamlessly.
+- **`landing`**: Top-layer landing page. Engineered for SEO, maximum aesthetic impact, and zero-JS payloads using static Astro chapters. Incorporates isolated **React 19 Islands** for specific interactive systems (e.g., live Leaderboards, Supabase Auth flows).
+- **`platform`**: Personalized student/admin data portal leveraging **Astro SSR** and Prisma to serve authenticated data layers and statistics seamlessly.
 
 ### 📦 Shared Packages (`/packages`)
 - **`database`**: Core database logic housing the unified Prisma schema and generated Prisma client layer.
