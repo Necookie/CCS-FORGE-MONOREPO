@@ -1,0 +1,11 @@
+{
+  "name": "@forge/config-eslint",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "eslint": "^9.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@forge/database",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "db:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.10.0",
+    "@forge/config-typescript": "workspace:*",
+    "typescript": "^5.4.0"
+  }
+}

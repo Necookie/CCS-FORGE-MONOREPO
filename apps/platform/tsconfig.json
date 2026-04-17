@@ -1,0 +1,9 @@
+{
+  "extends": "@forge/config-typescript/astro.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  }
+}
