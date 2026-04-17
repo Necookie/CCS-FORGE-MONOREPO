@@ -1,0 +1,30 @@
+---
+// apps/platform/src/components/dashboard/DailyQuestBanner.astro
+---
+
+<div class="w-full rounded-[2rem] bg-gradient-to-r from-purple-600 to-[#1A1A24] border border-white/10 p-6 sm:p-8 flex items-center justify-between relative overflow-hidden shadow-[0_10px_40px_rgba(138,43,226,0.3)]">
+   <!-- Ambient pattern -->
+   <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+   
+   <div class="relative z-10 flex flex-col gap-2 max-w-xl">
+      <div class="inline-flex max-w-fit px-3 py-1 bg-black/30 rounded-xl border border-white/10 shadow-sm items-center gap-2">
+         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+         <span class="font-mono text-[10px] uppercase text-cyan-400 tracking-widest leading-none">Quest of the Day</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tighter leading-tight mt-1 text-white">Optimize the Database Schema</h1>
+      <p class="text-purple-100 text-sm leading-relaxed max-w-md">Analyze the payload and eliminate duplicate queries in the Forge Node registry. <span class="font-bold text-white">+500 XP Yield.</span></p>
+   </div>
+
+   <div class="relative z-10 hidden sm:block shrink-0">
+      <button class="px-6 py-3 rounded-xl bg-cyan-400 text-slate-900 font-bold uppercase text-xs tracking-widest shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:-translate-y-1 hover:scale-[1.02] transition-all border border-transparent">
+         Start Mission
+      </button>
+   </div>
+   
+   <!-- Mobile button -->
+   <div class="absolute bottom-6 right-6 sm:hidden z-10">
+      <button class="w-12 h-12 rounded-xl bg-cyan-400 text-slate-900 flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.4)]">
+         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+      </button>
+   </div>
+</div>

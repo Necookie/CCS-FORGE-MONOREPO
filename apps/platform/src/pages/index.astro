@@ -1,28 +1,60 @@
 ---
-import '../global.css';
-import { Button } from '@forge/ui';
+// apps/platform/src/pages/index.astro
+import PlatformLayout from '../layouts/PlatformLayout.astro';
+import DailyQuestBanner from '../components/dashboard/DailyQuestBanner.astro';
+import CommunityFeed from '../components/dashboard/CommunityFeed.astro';
+import OperativeSnapshot from '../components/dashboard/OperativeSnapshot.astro';
+import TrendingQuests from '../components/dashboard/TrendingQuests.astro';
+
+// --- MOCK DATA --- //
+const operativeData = {
+  name: "Felix",
+  level: 42,
+  xpBalance: "12,450",
+  streak: 14,
+  avatarSeed: "Felix"
+};
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Forge WebHub</title>
-  </head>
-  <body class="bg-[#1A1A24] text-white min-h-screen flex flex-col items-center justify-center">
-    <header class="w-full fixed top-0 bg-[#252634]/80 backdrop-blur-md border-b border-white/5 p-4 z-50">
-      <nav class="max-w-7xl mx-auto flex justify-between items-center">
-        <h1 class="text-[#00E5FF] font-bold text-xl tracking-wider">CCS FORGE</h1>
-        <Button client:load>Login</Button>
-      </nav>
-    </header>
+<PlatformLayout title="Explore" currentPath="/">
+  
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full">
     
-    <main class="text-center px-4 pt-32">
-      <h2 class="text-5xl font-extrabold mb-6">Build the Future</h2>
-      <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-        Static Content Hub. Experience the next generation of building things with blazing fast static generation.
-      </p>
-      <Button client:load className="text-lg px-8 py-4">Get Started</Button>
-    </main>
-  </body>
-</html>
+    <!-- LEFT: Main Feed Column (8 Cols) -->
+    <div class="lg:col-span-8 flex flex-col gap-10">
+      
+      <!-- The Big Daily CTA -->
+      <section>
+         <div class="flex items-center justify-between mb-4">
+            <h2 class="text-white font-bold text-lg tracking-tight leading-none">Featured</h2>
+         </div>
+         <DailyQuestBanner />
+      </section>
+      
+      <!-- The Social / Global Activity Feed -->
+      <section>
+         <CommunityFeed />
+      </section>
+
+    </div>
+
+    <!-- RIGHT: Personalized Rail (4 Cols) -->
+    <aside class="lg:col-span-4 flex flex-col gap-8 h-max sticky top-24">
+       
+       <OperativeSnapshot {...operativeData} />
+       
+       <TrendingQuests />
+
+       <!-- Small footer/meta links in the rail -->
+       <div class="flex flex-wrap gap-x-4 gap-y-2 px-2 text-[10px] font-mono text-slate-600 uppercase tracking-widest mt-4">
+          <a href="#" class="hover:text-slate-400 transition-colors">Documentation</a>
+          <a href="#" class="hover:text-slate-400 transition-colors">Leaderboard</a>
+          <a href="#" class="hover:text-slate-400 transition-colors">GitHub Sync</a>
+          <a href="#" class="hover:text-slate-400 transition-colors">Support</a>
+       </div>
+
+    </aside>
+
+  </div>
+
+</PlatformLayout>

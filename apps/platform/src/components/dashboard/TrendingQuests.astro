@@ -1,0 +1,33 @@
+---
+// apps/platform/src/components/dashboard/TrendingQuests.astro
+
+const quests = [
+  { id: 'mq-24', title: 'Refactor Auth Middleware', type: 'Backend' },
+  { id: 'hq-01', title: 'Complete Glow Doctrine', type: 'UI/UX' },
+  { id: 'mq-09', title: 'Map Firebase to Prisma', type: 'Data' }
+];
+---
+
+<div class="rounded-[1.5rem] bg-[#252634] border border-white/5 flex flex-col overflow-hidden">
+   <div class="px-5 py-4 border-b border-white/5 flex items-center justify-between">
+      <h3 class="font-bold text-sm tracking-tight leading-none text-slate-300">Active Quests</h3>
+      <a href="/quests" class="text-[10px] uppercase font-bold text-cyan-400 tracking-widest hover:text-cyan-300 transition-colors leading-none">View All</a>
+   </div>
+   
+   <div class="flex flex-col">
+      {quests.map((q, i) => (
+         <a href="#" class={`px-5 py-4 block hover:bg-white/5 transition-colors group ${i !== quests.length - 1 ? 'border-b border-white/5' : ''}`}>
+            <div class="flex items-start justify-between gap-3">
+               <div class="flex flex-col gap-1.5">
+                  <span class="text-white font-medium text-sm group-hover:text-cyan-400 transition-colors leading-none">{q.title}</span>
+                  <div class="flex items-center gap-2">
+                     <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest leading-none bg-black/20 px-1.5 py-0.5 rounded-md">{q.id}</span>
+                     <span class="text-[9px] font-mono text-purple-400 uppercase tracking-widest leading-none">{q.type}</span>
+                  </div>
+               </div>
+               <svg class="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </div>
+         </a>
+      ))}
+   </div>
+</div>
