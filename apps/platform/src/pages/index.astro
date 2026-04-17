@@ -12,6 +12,31 @@ import '../global.css';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return 'light'; // default to light
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('theme-toggle');
+        if(toggle) {
+          toggle.addEventListener('click', () => {
+             document.documentElement.classList.toggle("dark");
+             const isDark = document.documentElement.classList.contains("dark");
+             localStorage.setItem("theme", isDark ? "dark" : "light");
+          });
+        }
+      });
+    </script>
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -24,20 +49,29 @@ import '../global.css';
         width: 8px;
       }
       ::-webkit-scrollbar-track {
+        background: #f8fafc;
+      }
+      .dark ::-webkit-scrollbar-track {
         background: #1A1A24;
       }
       ::-webkit-scrollbar-thumb {
-        background: #5C5C70;
+        background: #cbd5e1;
         border-radius: 4px;
       }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #5C5C70;
+      }
       ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
         background: #A0A0B0;
       }
     </style>
   </head>
-  <body class="bg-[#1A1A24] text-white overflow-x-hidden antialiased">
+  <body class="bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white overflow-x-hidden antialiased transition-colors duration-300">
     <!-- Navbar -->
-    <header class="w-full fixed top-0 bg-[#252634]/80 backdrop-blur-md border-b border-white/5 p-4 z-50 transition-all duration-300">
+    <header class="w-full fixed top-0 bg-white/80 dark:bg-[#252634]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5 p-4 z-50 transition-all duration-300">
       <nav class="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#8A2BE2] to-[#00E5FF] flex items-center justify-center shrink-0">
@@ -45,16 +79,26 @@ import '../global.css';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <span class="text-white font-bold text-xl tracking-wide">Forge</span>
+          <span class="text-slate-900 dark:text-white font-bold text-xl tracking-wide">Forge</span>
         </div>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-[#A0A0B0]">
-          <a href="#genesis" class="hover:text-white transition-colors">Origins</a>
-          <a href="#arena" class="hover:text-white transition-colors">The Arena</a>
-          <a href="#foundry" class="hover:text-white transition-colors">Foundry</a>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600 dark:text-[#A0A0B0]">
+          <a href="#genesis" class="hover:text-slate-900 dark:hover:text-white transition-colors">Origins</a>
+          <a href="#arena" class="hover:text-slate-900 dark:hover:text-white transition-colors">The Arena</a>
+          <a href="#foundry" class="hover:text-slate-900 dark:hover:text-white transition-colors">Foundry</a>
         </div>
-        <button class="bg-transparent border border-white/10 text-white rounded-full px-5 py-2 text-sm font-medium transition-all hover:border-[#00E5FF] hover:text-[#00E5FF] hover:shadow-[0_0_10px_rgba(0,229,255,0.2)]">
-          Sign In
-        </button>
+        <div class="flex items-center gap-2 md:gap-4">
+          <button id="theme-toggle" class="p-2 rounded-full border border-slate-200 dark:border-white/10 text-slate-600 dark:text-[#A0A0B0] hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+          <button class="bg-transparent border border-slate-300 dark:border-white/10 text-slate-800 dark:text-white rounded-full px-5 py-2 text-sm font-medium transition-all hover:border-[#00E5FF] hover:text-[#00E5FF] dark:hover:shadow-[0_0_10px_rgba(0,229,255,0.2)]">
+            Sign In
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -62,32 +106,32 @@ import '../global.css';
       <!-- Section 1: The Forge (Hero Section) -->
       <section class="relative min-h-[100dvh] flex items-center justify-center pt-24 px-4 overflow-hidden">
         <!-- Ambient Glow Elements -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#8A2BE2] rounded-full blur-[120px] md:blur-[150px] opacity-15 pointer-events-none"></div>
-        <div class="absolute top-1/4 right-1/4 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-[#00E5FF] rounded-full blur-[100px] md:blur-[120px] opacity-10 pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#8A2BE2] rounded-full blur-[120px] md:blur-[150px] opacity-20 dark:opacity-15 pointer-events-none"></div>
+        <div class="absolute top-1/4 right-1/4 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-[#00E5FF] rounded-full blur-[100px] md:blur-[120px] opacity-20 dark:opacity-10 pointer-events-none"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6 md:gap-8 mt-[-8vh]">
-          <div class="inline-flex items-center gap-3 bg-[#252634] rounded-full px-4 py-2 border border-white/5 animate-fade-in-up">
+          <div class="inline-flex items-center gap-3 bg-white dark:bg-[#252634] rounded-full px-4 py-2 border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none animate-fade-in-up">
             <span class="w-2 h-2 rounded-full bg-[#00E5FF] animate-pulse shadow-[0_0_8px_#00E5FF]"></span>
             <span class="font-mono text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#00E5FF]">[ SYSTEM: ONLINE ]</span>
           </div>
-          <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight text-white leading-tight">
+          <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
             Enter the <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#8A2BE2]">Forge.</span>
           </h1>
-          <p class="text-base sm:text-lg md:text-xl text-[#A0A0B0] max-w-2xl leading-relaxed px-4">
+          <p class="text-base sm:text-lg md:text-xl text-slate-600 dark:text-[#A0A0B0] max-w-2xl leading-relaxed px-4">
             The digital nervous system for the College of Computer Studies. Stop losing progress in fragmented chats. Build a visible record of your growth, one challenge at a time.
           </p>
           <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-4 mt-6 px-4 sm:px-0">
-            <button class="bg-[#00E5FF] text-[#1A1A24] font-bold rounded-full px-8 py-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] w-full sm:w-auto flex items-center justify-center gap-2">
+            <button class="bg-[#00E5FF] text-[#1A1A24] font-bold rounded-full px-8 py-4 transition-all duration-300 hover:scale-[1.03] shadow-md dark:shadow-none hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] w-full sm:w-auto flex items-center justify-center gap-2">
               Authenticate // Enter
             </button>
-            <button class="bg-transparent border border-[#A0A0B0] text-[#A0A0B0] font-medium rounded-full px-8 py-4 transition-all duration-300 hover:border-white hover:text-white hover:bg-white/5 w-full sm:w-auto mt-2 sm:mt-0 items-center justify-center flex">
+            <button class="bg-transparent border border-slate-300 dark:border-[#A0A0B0] text-slate-700 dark:text-[#A0A0B0] font-medium rounded-full px-8 py-4 transition-all duration-300 hover:border-slate-900 dark:hover:border-white hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 w-full sm:w-auto mt-2 sm:mt-0 items-center justify-center flex">
               View Architecture
             </button>
           </div>
         </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#5C5C70] animate-bounce">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-[#5C5C70]">Scroll</span>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-400 dark:text-[#5C5C70] animate-bounce">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-[#5C5C70]">Scroll</span>
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
         </div>
       </section>
@@ -96,28 +140,28 @@ import '../global.css';
       <section id="genesis" class="max-w-7xl mx-auto px-4 md:px-8 w-full scroll-mt-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div class="flex flex-col gap-6 order-2 lg:order-1">
-            <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2">From Noise to Signal.</h2>
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">From Noise to Signal.</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-[#8A2BE2] to-[#00E5FF] rounded-full"></div>
-            <p class="text-base md:text-lg text-[#A0A0B0] leading-relaxed">
+            <p class="text-base md:text-lg text-slate-600 dark:text-[#A0A0B0] leading-relaxed">
               We started in a chaos of fragmented group chats, lost announcements, and untracked achievements. Connections were made, but the legacy was lost the moment the semester ended.
             </p>
-            <p class="text-base md:text-lg text-[#A0A0B0] leading-relaxed mt-2">
+            <p class="text-base md:text-lg text-slate-600 dark:text-[#A0A0B0] leading-relaxed mt-2">
               The Genesis protocol was initiated to unify our ecosystem. CCS Forge is not just a portal—it is our definitive digital home, designed for presence and permanence.
             </p>
           </div>
           <!-- Stylized Graphic Representation -->
-          <div class="relative h-[300px] sm:h-[400px] bg-[#252634] rounded-[2rem] sm:rounded-[3rem] border border-white/5 overflow-hidden group order-1 lg:order-2">
+          <div class="relative h-[300px] sm:h-[400px] bg-white dark:bg-[#252634] rounded-[2rem] sm:rounded-[3rem] border border-slate-200 dark:border-white/5 overflow-hidden group order-1 lg:order-2 shadow-sm dark:shadow-none">
             <div class="absolute inset-0 bg-gradient-to-tr from-[#8A2BE2]/5 to-[#00E5FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full p-4 sm:p-8 flex flex-col gap-4">
-               <div class="w-3/4 h-10 sm:h-12 bg-[#1A1A24] border border-white/5 rounded-2xl opacity-30 blur-[2px] transform -translate-x-4"></div>
-               <div class="w-[90%] h-14 sm:h-16 bg-[#1A1A24] border border-[#00E5FF]/40 rounded-2xl flex items-center px-6 shadow-[0_0_20px_rgba(0,229,255,0.15)] relative z-10 mx-auto group-hover:scale-[1.02] transition-transform duration-500">
+               <div class="w-3/4 h-10 sm:h-12 bg-slate-50 dark:bg-[#1A1A24] border border-slate-200 dark:border-white/5 rounded-2xl opacity-50 dark:opacity-30 blur-[2px] transform -translate-x-4"></div>
+               <div class="w-[90%] h-14 sm:h-16 bg-slate-50 dark:bg-[#1A1A24] border border-[#00E5FF]/40 rounded-2xl flex items-center px-6 shadow-[0_0_20px_rgba(0,229,255,0.15)] relative z-10 mx-auto group-hover:scale-[1.02] transition-transform duration-500">
                  <div class="w-2 h-2 rounded-full bg-[#00E5FF] mr-3"></div>
                  <span class="font-mono text-xs text-[#00E5FF] uppercase tracking-widest">System Unified</span>
                </div>
-               <div class="w-5/6 h-10 sm:h-12 bg-[#1A1A24] border border-white/5 rounded-2xl opacity-30 blur-[1px] transform translate-x-8"></div>
+               <div class="w-5/6 h-10 sm:h-12 bg-slate-50 dark:bg-[#1A1A24] border border-slate-200 dark:border-white/5 rounded-2xl opacity-50 dark:opacity-30 blur-[1px] transform translate-x-8"></div>
             </div>
             <!-- Grid overlay -->
-            <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)] pointer-events-none"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)] pointer-events-none"></div>
           </div>
         </div>
       </section>
@@ -126,40 +170,40 @@ import '../global.css';
       <section id="arena" class="max-w-7xl mx-auto px-4 md:px-8 w-full scroll-mt-24">
         <div class="flex flex-col gap-4 mb-12 sm:mb-16">
           <span class="font-mono text-xs uppercase tracking-[0.15em] text-[#8A2BE2]">[ LEGACY STATUS: ACTIVE ]</span>
-          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">The Arena.</h2>
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">The Arena.</h2>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <!-- Card 1 -->
-          <div class="bg-[#252634] border border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-[#2D2E42] hover:-translate-y-2 hover:border-[#FF6B6B]/40 hover:shadow-[0_8px_32px_rgba(255,107,107,0.15)] group flex flex-col gap-6 h-full">
+          <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:-translate-y-2 hover:border-[#FF6B6B]/40 hover:shadow-[0_8px_32px_rgba(255,107,107,0.15)] group flex flex-col gap-6 h-full shadow-sm dark:shadow-none">
             <div class="inline-flex max-w-fit px-3 py-1 bg-[#FF6B6B]/10 rounded-full border border-[#FF6B6B]/20">
               <span class="font-mono text-[10px] uppercase text-[#FF6B6B] tracking-wider">[ RANK: SECURED ]</span>
             </div>
             <div class="flex-grow">
-              <h3 class="text-xl md:text-2xl font-semibold text-white mb-3 group-hover:text-[#FF6B6B] transition-colors">CodeChum Nationals 2025</h3>
-              <p class="text-[#A0A0B0] text-sm md:text-base leading-relaxed">Our legacy forged in competitive programming against the nation's best. The foundation of our competitive spirit.</p>
+              <h3 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-[#FF6B6B] transition-colors">CodeChum Nationals 2025</h3>
+              <p class="text-slate-600 dark:text-[#A0A0B0] text-sm md:text-base leading-relaxed">Our legacy forged in competitive programming against the nation's best. The foundation of our competitive spirit.</p>
             </div>
           </div>
 
           <!-- Card 2 -->
-          <div class="bg-[#252634] border border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-[#2D2E42] hover:-translate-y-2 hover:border-[#00E5FF]/40 hover:shadow-[0_8px_32px_rgba(0,229,255,0.15)] group flex flex-col gap-6 h-full">
+          <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:-translate-y-2 hover:border-[#00E5FF]/40 hover:shadow-[0_8px_32px_rgba(0,229,255,0.15)] group flex flex-col gap-6 h-full shadow-sm dark:shadow-none">
             <div class="inline-flex max-w-fit px-3 py-1 bg-[#00E5FF]/10 rounded-full border border-[#00E5FF]/20">
               <span class="font-mono text-[10px] uppercase text-[#00E5FF] tracking-wider">[ STATUS: ACTIVE ]</span>
             </div>
             <div class="flex-grow">
-              <h3 class="text-xl md:text-2xl font-semibold text-white mb-3 group-hover:text-[#00E5FF] transition-colors">Phase 2: Attendance Quests</h3>
-              <p class="text-[#A0A0B0] text-sm md:text-base leading-relaxed">Turn physical presence into digital capital through proximity verifications and real-world participation drops.</p>
+              <h3 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-[#00E5FF] transition-colors">Phase 2: Attendance Quests</h3>
+              <p class="text-slate-600 dark:text-[#A0A0B0] text-sm md:text-base leading-relaxed">Turn physical presence into digital capital through proximity verifications and real-world participation drops.</p>
             </div>
           </div>
 
           <!-- Card 3 -->
-          <div class="bg-[#252634] border border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-[#2D2E42] hover:-translate-y-2 hover:border-[#8A2BE2]/40 hover:shadow-[0_8px_32px_rgba(138,43,226,0.15)] group flex flex-col gap-6 h-full md:col-span-2 lg:col-span-1">
+          <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2rem] p-8 transition-all duration-300 hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:-translate-y-2 hover:border-[#8A2BE2]/40 hover:shadow-[0_8px_32px_rgba(138,43,226,0.15)] group flex flex-col gap-6 h-full md:col-span-2 lg:col-span-1 shadow-sm dark:shadow-none">
             <div class="inline-flex max-w-fit px-3 py-1 bg-[#8A2BE2]/10 rounded-full border border-[#8A2BE2]/20">
               <span class="font-mono text-[10px] uppercase text-[#8A2BE2] tracking-wider">[ BROADCASTING ]</span>
             </div>
             <div class="flex-grow">
-              <h3 class="text-xl md:text-2xl font-semibold text-white mb-3 group-hover:text-[#8A2BE2] transition-colors">Global Announcements</h3>
-              <p class="text-[#A0A0B0] text-sm md:text-base leading-relaxed">Live cross-cohort transmissions directly to your dashboard. High-priority intelligence shared network-wide.</p>
+              <h3 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white mb-3 group-hover:text-[#8A2BE2] transition-colors">Global Announcements</h3>
+              <p class="text-slate-600 dark:text-[#A0A0B0] text-sm md:text-base leading-relaxed">Live cross-cohort transmissions directly to your dashboard. High-priority intelligence shared network-wide.</p>
             </div>
           </div>
         </div>
@@ -167,41 +211,41 @@ import '../global.css';
 
       <!-- Section 4: The Challenge System -->
       <section class="max-w-7xl mx-auto px-4 md:px-8 w-full">
-        <div class="bg-[#252634] border border-white/5 rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 lg:gap-16 shadow-sm dark:shadow-none">
           <!-- Background Decoration -->
-          <div class="absolute right-0 top-0 w-[80%] lg:w-1/2 h-full bg-gradient-to-l from-[#00E5FF]/[0.03] to-transparent pointer-events-none"></div>
+          <div class="absolute right-0 top-0 w-[80%] lg:w-1/2 h-full bg-gradient-to-l from-[#00E5FF]/[0.05] dark:from-[#00E5FF]/[0.03] to-transparent pointer-events-none"></div>
           
           <div class="flex flex-col gap-6 lg:w-[45%] relative z-10">
-            <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2">Flexible Modalities.</h2>
-            <p class="text-[#A0A0B0] text-base md:text-lg leading-relaxed">Adaptable trials engineered to test, verify, and reward your continuous engagement within the ecosystem.</p>
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">Flexible Modalities.</h2>
+            <p class="text-slate-600 dark:text-[#A0A0B0] text-base md:text-lg leading-relaxed">Adaptable trials engineered to test, verify, and reward your continuous engagement within the ecosystem.</p>
             <div class="mt-6 flex flex-col gap-4">
-              <div class="flex items-center gap-4 text-white group">
-                <div class="w-8 h-8 rounded-full bg-[#1A1A24] border border-[#00E5FF]/40 flex items-center justify-center group-hover:bg-[#00E5FF]/10 transition-colors">
+              <div class="flex items-center gap-4 text-slate-800 dark:text-white group">
+                <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-[#1A1A24] border border-[#00E5FF]/40 flex items-center justify-center group-hover:bg-[#00E5FF]/10 transition-colors">
                   <span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF] group-hover:shadow-[0_0_8px_#00E5FF]"></span>
                 </div>
-                <span class="text-sm font-semibold uppercase tracking-widest text-[#A0A0B0] group-hover:text-white transition-colors">Algorithm Battles</span>
+                <span class="text-sm font-semibold uppercase tracking-widest text-slate-600 dark:text-[#A0A0B0] group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Algorithm Battles</span>
               </div>
-              <div class="flex items-center gap-4 text-white group">
-                <div class="w-8 h-8 rounded-full bg-[#1A1A24] border border-[#8A2BE2]/40 flex items-center justify-center group-hover:bg-[#8A2BE2]/10 transition-colors">
+              <div class="flex items-center gap-4 text-slate-800 dark:text-white group">
+                <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-[#1A1A24] border border-[#8A2BE2]/40 flex items-center justify-center group-hover:bg-[#8A2BE2]/10 transition-colors">
                   <span class="w-2.5 h-2.5 rounded-full bg-[#8A2BE2] group-hover:shadow-[0_0_8px_#8A2BE2]"></span>
                 </div>
-                <span class="text-sm font-semibold uppercase tracking-widest text-[#A0A0B0] group-hover:text-white transition-colors">Quiz Scrambles</span>
+                <span class="text-sm font-semibold uppercase tracking-widest text-slate-600 dark:text-[#A0A0B0] group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Quiz Scrambles</span>
               </div>
-              <div class="flex items-center gap-4 text-white group">
-                <div class="w-8 h-8 rounded-full bg-[#1A1A24] border border-[#FF6B6B]/40 flex items-center justify-center group-hover:bg-[#FF6B6B]/10 transition-colors">
+              <div class="flex items-center gap-4 text-slate-800 dark:text-white group">
+                <div class="w-8 h-8 rounded-full bg-slate-50 dark:bg-[#1A1A24] border border-[#FF6B6B]/40 flex items-center justify-center group-hover:bg-[#FF6B6B]/10 transition-colors">
                   <span class="w-2.5 h-2.5 rounded-full bg-[#FF6B6B] group-hover:shadow-[0_0_8px_#FF6B6B]"></span>
                 </div>
-                <span class="text-sm font-semibold uppercase tracking-widest text-[#A0A0B0] group-hover:text-white transition-colors">Campus Scavenger Hunts</span>
+                <span class="text-sm font-semibold uppercase tracking-widest text-slate-600 dark:text-[#A0A0B0] group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Campus Scavenger Hunts</span>
               </div>
             </div>
           </div>
 
           <div class="lg:w-[55%] w-full relative z-10 flex flex-col gap-4">
              <!-- Mock UI snippet -->
-             <div class="bg-[#1A1A24] border border-[#00E5FF]/30 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-[0_8px_30px_rgba(0,229,255,0.08)] transform lg:translate-x-8 hover:-translate-y-1 transition-transform cursor-default">
+             <div class="bg-slate-50 dark:bg-[#1A1A24] border border-[#00E5FF]/30 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-[0_8px_30px_rgba(0,229,255,0.08)] transform lg:translate-x-8 hover:-translate-y-1 transition-transform cursor-default">
                 <div class="mb-4 sm:mb-0">
-                   <h4 class="text-white font-medium text-lg mb-1.5">DSA Graph Theory Quiz</h4>
-                   <span class="font-mono text-[10px] sm:text-xs text-[#A0A0B0] uppercase tracking-wider">ID: CF-8812</span>
+                   <h4 class="text-slate-900 dark:text-white font-medium text-lg mb-1.5">DSA Graph Theory Quiz</h4>
+                   <span class="font-mono text-[10px] sm:text-xs text-slate-500 dark:text-[#A0A0B0] uppercase tracking-wider">ID: CF-8812</span>
                 </div>
                 <div class="sm:text-right flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 sm:gap-1 text-right">
                    <div class="font-mono text-sm sm:text-base text-[#00E5FF] font-bold">+50 XP</div>
@@ -209,13 +253,13 @@ import '../global.css';
                 </div>
              </div>
              <!-- Mock UI snippet 2 -->
-             <div class="bg-[#1A1A24] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between opacity-60 hover:opacity-100 transition-opacity transform lg:-translate-x-4 cursor-default">
+             <div class="bg-slate-50 dark:bg-[#1A1A24] border border-slate-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between opacity-80 dark:opacity-60 hover:opacity-100 transition-opacity transform lg:-translate-x-4 cursor-default">
                 <div class="mb-4 sm:mb-0">
-                   <h4 class="text-white font-medium text-lg mb-1.5">React Hooks Component</h4>
-                   <span class="font-mono text-[10px] sm:text-xs text-[#A0A0B0] uppercase tracking-wider">ID: CF-8813</span>
+                   <h4 class="text-slate-900 dark:text-white font-medium text-lg mb-1.5">React Hooks Component</h4>
+                   <span class="font-mono text-[10px] sm:text-xs text-slate-500 dark:text-[#A0A0B0] uppercase tracking-wider">ID: CF-8813</span>
                 </div>
                 <div class="sm:text-right flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 sm:gap-1 text-right">
-                   <div class="font-mono text-sm sm:text-base text-white font-bold mb-1">+100 XP</div>
+                   <div class="font-mono text-sm sm:text-base text-slate-900 dark:text-white font-bold mb-1">+100 XP</div>
                    <span class="text-[10px] text-[#F4A261] uppercase tracking-[0.2em] font-mono whitespace-nowrap">Pending Review</span>
                 </div>
              </div>
@@ -227,14 +271,14 @@ import '../global.css';
       <section id="foundry" class="max-w-7xl mx-auto px-4 md:px-8 w-full scroll-mt-24">
         <div class="flex flex-col items-center text-center gap-4 mb-16 px-4">
           <span class="font-mono text-xs uppercase tracking-[0.15em] text-[#00E5FF]">[ LIVE LEADERBOARD ]</span>
-          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2">The Foundry.</h2>
-          <p class="text-[#A0A0B0] max-w-2xl text-base md:text-lg leading-relaxed">Ten architects. A growing ecosystem. See who converts continuous effort into digital capital through our Badge Engine.</p>
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">The Foundry.</h2>
+          <p class="text-slate-600 dark:text-[#A0A0B0] max-w-2xl text-base md:text-lg leading-relaxed">Ten architects. A growing ecosystem. See who converts continuous effort into digital capital through our Badge Engine.</p>
         </div>
 
         <!-- Leaderboard Mock Layout (Target for React Island) -->
-        <div class="bg-[#252634] border border-white/5 rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-8 max-w-4xl mx-auto flex flex-col gap-3">
+        <div class="bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-6 md:p-8 max-w-4xl mx-auto flex flex-col gap-3 shadow-sm dark:shadow-none">
             <!-- Header -->
-            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 font-mono text-[10px] text-[#5C5C70] uppercase tracking-[0.2em] border-b border-white/5 mb-2">
+            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 font-mono text-[10px] text-slate-500 dark:text-[#5C5C70] uppercase tracking-[0.2em] border-b border-slate-100 dark:border-white/5 mb-2">
                <div class="col-span-1">Rank</div>
                <div class="col-span-5">Operative</div>
                <div class="col-span-3">Core Badges</div>
@@ -242,15 +286,15 @@ import '../global.css';
             </div>
             
             <!-- Top Player -->
-            <div class="flex flex-col md:grid md:grid-cols-12 gap-4 px-6 py-5 items-center bg-[#2D2E42] border border-[#00E5FF]/30 rounded-2xl sm:rounded-3xl shadow-[0_8px_30px_rgba(0,229,255,0.08)] transform md:-translate-y-1 transition-all">
+            <div class="flex flex-col md:grid md:grid-cols-12 gap-4 px-6 py-5 items-center bg-slate-50 dark:bg-[#2D2E42] border border-[#00E5FF]/30 rounded-2xl sm:rounded-3xl shadow-[0_8px_30px_rgba(0,229,255,0.08)] transform md:-translate-y-1 transition-all">
                <div class="col-span-1 font-mono text-2xl text-[#00E5FF] font-bold self-start md:self-center hidden md:block">01</div>
                <div class="col-span-5 flex items-center gap-4 w-full md:w-auto mt-2 md:mt-0">
                   <div class="relative">
-                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Alex&skinColor=f8d25c" alt="Avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#1A1A24] border-2 border-[#00E5FF]" />
-                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#1A1A24] border border-[#00E5FF] rounded-full flex items-center justify-center font-mono text-[8px] text-[#00E5FF] shadow-[0_0_8px_#00E5FF]">1</div>
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Alex&skinColor=f8d25c" alt="Avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-100 dark:bg-[#1A1A24] border-2 border-[#00E5FF]" />
+                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-[#1A1A24] border border-[#00E5FF] rounded-full flex items-center justify-center font-mono text-[8px] text-[#00E5FF] shadow-[0_0_8px_#00E5FF]">1</div>
                   </div>
                   <div>
-                     <div class="text-white font-medium text-lg">Alex Chen</div>
+                     <div class="text-slate-900 dark:text-white font-medium text-lg">Alex Chen</div>
                      <div class="font-mono text-[10px] sm:text-xs text-[#00E5FF]">@alexc_dev</div>
                   </div>
                </div>
@@ -265,23 +309,23 @@ import '../global.css';
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                   </div>
                </div>
-               <div class="col-span-3 text-right w-full md:w-auto mt-2 md:mt-0 flex md:block justify-between items-center border-t border-white/5 md:border-none pt-4 md:pt-0">
-                  <span class="md:hidden font-mono text-xs text-[#5C5C70] uppercase">Capital:</span>
+               <div class="col-span-3 text-right w-full md:w-auto mt-2 md:mt-0 flex md:block justify-between items-center border-t border-slate-200 dark:border-white/5 md:border-none pt-4 md:pt-0">
+                  <span class="md:hidden font-mono text-xs text-slate-500 dark:text-[#5C5C70] uppercase">Capital:</span>
                   <span class="font-mono text-lg text-[#00E5FF] font-bold">14,250 XP</span>
                </div>
             </div>
 
             <!-- Player 2 -->
-            <div class="flex flex-col md:grid md:grid-cols-12 gap-4 px-6 py-5 items-center bg-[#1A1A24] border border-transparent rounded-2xl sm:rounded-3xl hover:bg-[#2D2E42] hover:border-white/5 transition-colors duration-300">
-               <div class="col-span-1 font-mono text-xl text-[#A0A0B0] hidden md:block">02</div>
+            <div class="flex flex-col md:grid md:grid-cols-12 gap-4 px-6 py-5 items-center bg-white dark:bg-[#1A1A24] border border-transparent rounded-2xl sm:rounded-3xl hover:bg-slate-50 dark:hover:bg-[#2D2E42] hover:border-slate-200 dark:hover:border-white/5 transition-colors duration-300">
+               <div class="col-span-1 font-mono text-xl text-slate-400 dark:text-[#A0A0B0] hidden md:block">02</div>
                <div class="col-span-5 flex items-center gap-4 w-full md:w-auto">
                   <div class="relative">
-                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Sam&skinColor=d08B5B" alt="Avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#252634] border border-white/10" />
-                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#1A1A24] border border-white/20 rounded-full flex items-center justify-center font-mono text-[8px] text-[#A0A0B0]">2</div>
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Sam&skinColor=d08B5B" alt="Avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-50 dark:bg-[#252634] border border-slate-200 dark:border-white/10" />
+                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-[#1A1A24] border border-slate-200 dark:border-white/20 rounded-full flex items-center justify-center font-mono text-[8px] text-slate-500 dark:text-[#A0A0B0]">2</div>
                   </div>
                   <div>
-                     <div class="text-white font-medium text-lg">Sam Rivera</div>
-                     <div class="font-mono text-[10px] sm:text-xs text-[#5C5C70]">@srivera</div>
+                     <div class="text-slate-900 dark:text-white font-medium text-lg">Sam Rivera</div>
+                     <div class="font-mono text-[10px] sm:text-xs text-slate-500 dark:text-[#5C5C70]">@srivera</div>
                   </div>
                </div>
                <div class="col-span-3 flex gap-2 w-full md:w-auto mt-4 md:mt-0 justify-start">
@@ -289,14 +333,14 @@ import '../global.css';
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                   </div>
                </div>
-               <div class="col-span-3 text-right w-full md:w-auto mt-2 md:mt-0 flex md:block justify-between items-center border-t border-white/5 md:border-none pt-4 md:pt-0">
-                  <span class="md:hidden font-mono text-xs text-[#5C5C70] uppercase">Capital:</span>
-                  <span class="font-mono text-lg text-white font-semibold">12,100 XP</span>
+               <div class="col-span-3 text-right w-full md:w-auto mt-2 md:mt-0 flex md:block justify-between items-center border-t border-slate-200 dark:border-white/5 md:border-none pt-4 md:pt-0">
+                  <span class="md:hidden font-mono text-xs text-slate-500 dark:text-[#5C5C70] uppercase">Capital:</span>
+                  <span class="font-mono text-lg text-slate-900 dark:text-white font-semibold">12,100 XP</span>
                </div>
             </div>
 
             <div class="mt-8 text-center">
-              <button class="text-xs font-mono text-[#A0A0B0] hover:text-white transition-all uppercase tracking-widest px-6 py-3 rounded-full border border-transparent hover:border-white/10 hover:bg-white/5">
+              <button class="text-xs font-mono text-slate-600 dark:text-[#A0A0B0] hover:text-slate-900 dark:hover:text-white transition-all uppercase tracking-widest px-6 py-3 rounded-full border border-transparent hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5">
                 Scan Full Roster 
               </button>
             </div>
@@ -306,24 +350,24 @@ import '../global.css';
       <!-- Section 6: Project Showcase -->
       <section class="max-w-7xl mx-auto px-4 md:px-8 w-full mt-10">
          <div class="flex flex-col gap-4 mb-12 sm:mb-16">
-          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2">Capstone Outputs.</h2>
-          <p class="text-[#A0A0B0] max-w-2xl text-base md:text-lg leading-relaxed">Explore our archive of high-performance tools and UI/UX research. The raw source code of our progress.</p>
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">Capstone Outputs.</h2>
+          <p class="text-slate-600 dark:text-[#A0A0B0] max-w-2xl text-base md:text-lg leading-relaxed">Explore our archive of high-performance tools and UI/UX research. The raw source code of our progress.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
            <!-- Placeholder for Projects -->
-           <div class="aspect-square bg-[#252634] border border-white/5 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center p-8 gap-4 group hover:border-[#8A2BE2]/50 hover:bg-[#2D2E42] transition-colors cursor-pointer">
-              <div class="w-12 h-12 rounded-full bg-[#1A1A24] flex items-center justify-center text-[#5C5C70] group-hover:text-[#8A2BE2] transition-colors border border-transparent group-hover:border-[#8A2BE2]/30 shadow-none group-hover:shadow-[0_0_15px_rgba(138,43,226,0.15)]">
+           <div class="aspect-square bg-white dark:bg-[#252634] border border-slate-300 dark:border-white/5 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center p-8 gap-4 group hover:border-[#8A2BE2]/50 hover:bg-slate-50 dark:hover:bg-[#2D2E42] transition-colors cursor-pointer">
+              <div class="w-12 h-12 rounded-full bg-slate-50 dark:bg-[#1A1A24] flex items-center justify-center text-slate-400 dark:text-[#5C5C70] group-hover:text-[#8A2BE2] transition-colors border border-transparent group-hover:border-[#8A2BE2]/30 shadow-none group-hover:shadow-[0_0_15px_rgba(138,43,226,0.15)]">
                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
               </div>
-              <span class="font-mono text-[10px] md:text-xs text-[#5C5C70] uppercase tracking-[0.15em] leadnig-relaxed group-hover:text-[#A0A0B0]">No data found.<br/>Initiate scan.</span>
+              <span class="font-mono text-[10px] md:text-xs text-slate-500 dark:text-[#5C5C70] uppercase tracking-[0.15em] leadnig-relaxed group-hover:text-slate-600 dark:group-hover:text-[#A0A0B0]">No data found.<br/>Initiate scan.</span>
            </div>
            
-           <div class="aspect-square bg-[#252634] border border-white/5 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center p-8 gap-4 group hover:border-[#00E5FF]/50 hover:bg-[#2D2E42] transition-colors cursor-pointer">
-              <div class="w-12 h-12 rounded-full bg-[#1A1A24] flex items-center justify-center text-[#5C5C70] group-hover:text-[#00E5FF] transition-colors border border-transparent group-hover:border-[#00E5FF]/30 shadow-none group-hover:shadow-[0_0_15px_rgba(0,229,255,0.15)]">
+           <div class="aspect-square bg-white dark:bg-[#252634] border border-slate-300 dark:border-white/5 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center p-8 gap-4 group hover:border-[#00E5FF]/50 hover:bg-slate-50 dark:hover:bg-[#2D2E42] transition-colors cursor-pointer">
+              <div class="w-12 h-12 rounded-full bg-slate-50 dark:bg-[#1A1A24] flex items-center justify-center text-slate-400 dark:text-[#5C5C70] group-hover:text-[#00E5FF] transition-colors border border-transparent group-hover:border-[#00E5FF]/30 shadow-none group-hover:shadow-[0_0_15px_rgba(0,229,255,0.15)]">
                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
               </div>
-              <span class="font-mono text-[10px] md:text-xs text-[#5C5C70] uppercase tracking-[0.15em] leading-relaxed group-hover:text-[#A0A0B0]">Connect<br/>Repository.</span>
+              <span class="font-mono text-[10px] md:text-xs text-slate-500 dark:text-[#5C5C70] uppercase tracking-[0.15em] leading-relaxed group-hover:text-slate-600 dark:group-hover:text-[#A0A0B0]">Connect<br/>Repository.</span>
            </div>
         </div>
       </section>
@@ -331,8 +375,8 @@ import '../global.css';
     </main>
 
     <!-- Footer -->
-    <footer class="w-full bg-[#1A1A24] border-t border-white/5 py-12 md:py-16 text-center text-sm text-[#5C5C70] flex flex-col items-center">
-      <div class="font-mono uppercase tracking-[0.2em] mb-6 flex items-center justify-center gap-3 bg-[#252634] px-4 py-2 rounded-full border border-white/5">
+    <footer class="w-full bg-slate-50 dark:bg-[#1A1A24] border-t border-slate-200 dark:border-white/5 py-12 md:py-16 text-center text-sm text-slate-500 dark:text-[#5C5C70] flex flex-col items-center">
+      <div class="font-mono uppercase tracking-[0.2em] mb-6 flex items-center justify-center gap-3 bg-white dark:bg-[#252634] px-4 py-2 rounded-full border border-slate-200 dark:border-white/5">
          <div class="w-2 h-2 bg-[#00E5FF] rounded-full shadow-[0_0_8px_#00E5FF] animate-pulse"></div>
          <span class="text-xs">CCS Forge OS v3.0</span>
       </div>
