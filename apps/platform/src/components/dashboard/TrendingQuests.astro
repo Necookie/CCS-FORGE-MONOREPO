@@ -1,33 +1,62 @@
 ---
 // apps/platform/src/components/dashboard/TrendingQuests.astro
+// Right-rail widget: shows a short list of active quests.
+// Self-contained mock data; replace with DB query when ready.
 
-const quests = [
-  { id: 'mq-24', title: 'Refactor Auth Middleware', type: 'Backend' },
-  { id: 'hq-01', title: 'Complete Glow Doctrine', type: 'UI/UX' },
-  { id: 'mq-09', title: 'Map Firebase to Prisma', type: 'Data' }
+interface Quest {
+  id: string;
+  title: string;
+  type: string;
+}
+
+const QUESTS: Quest[] = [
+  { id: 'mq-24', title: 'Refactor Auth Middleware',    type: 'Backend' },
+  { id: 'hq-01', title: 'Complete Glow Doctrine Pass', type: 'UI/UX'   },
+  { id: 'mq-09', title: 'Map Firebase to Prisma',      type: 'Data'    },
 ];
 ---
 
-<div class="rounded-[1.5rem] bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 flex flex-col overflow-hidden">
-   <div class="px-5 py-4 border-b border-slate-200 dark:border-white/5 flex items-center justify-between">
-      <h3 class="font-bold text-sm tracking-tight leading-none text-slate-800 dark:text-slate-300">Active Quests</h3>
-      <a href="/quests" class="text-[10px] uppercase font-bold text-cyan-400 tracking-widest hover:text-cyan-300 transition-colors leading-none">View All</a>
-   </div>
-   
-   <div class="flex flex-col">
-      {quests.map((q, i) => (
-         <a href="#" class={`px-5 py-4 block hover:bg-slate-100 dark:bg-white/5 transition-colors group ${i !== quests.length - 1 ? 'border-b border-slate-200 dark:border-white/5' : ''}`}>
-            <div class="flex items-start justify-between gap-3">
-               <div class="flex flex-col gap-1.5">
-                  <span class="text-slate-900 dark:text-white font-medium text-sm group-hover:text-cyan-400 transition-colors leading-none">{q.title}</span>
-                  <div class="flex items-center gap-2">
-                     <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest leading-none bg-black/20 px-1.5 py-0.5 rounded-md">{q.id}</span>
-                     <span class="text-[9px] font-mono text-purple-400 uppercase tracking-widest leading-none">{q.type}</span>
-                  </div>
-               </div>
-               <svg class="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+<div class="rounded-[1.5rem] bg-white dark:bg-[#252634] border border-slate-200 dark:border-white/5 overflow-hidden shadow-sm">
+
+  <!-- Header -->
+  <div class="px-5 py-4 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
+    <h3 class="font-bold text-sm tracking-tight leading-none text-slate-900 dark:text-white">Active Quests</h3>
+    <a
+      href="/quests"
+      class="text-[10px] uppercase font-bold text-cyan-600 dark:text-cyan-400 tracking-widest hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors leading-none"
+    >
+      View All
+    </a>
+  </div>
+
+  <!-- Quest rows -->
+  <ul class="flex flex-col" role="list">
+    {QUESTS.map((q, i) => (
+      <li>
+        <a
+          href="#"
+          class={`flex items-center justify-between gap-3 px-5 py-4 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group ${i < QUESTS.length - 1 ? 'border-b border-slate-100 dark:border-white/5' : ''}`}
+          aria-label={`Open quest: ${q.title}`}
+        >
+          <div class="flex flex-col gap-1.5 min-w-0">
+            <span class="text-sm font-medium text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-none truncate">
+              {q.title}
+            </span>
+            <div class="flex items-center gap-2">
+              <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest leading-none bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-1.5 py-0.5 rounded-md">
+                {q.id}
+              </span>
+              <span class="text-[9px] font-mono text-purple-600 dark:text-purple-400 uppercase tracking-widest leading-none">
+                {q.type}
+              </span>
             </div>
-         </a>
-      ))}
-   </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </li>
+    ))}
+  </ul>
+
 </div>

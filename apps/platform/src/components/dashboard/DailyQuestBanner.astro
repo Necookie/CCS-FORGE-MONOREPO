@@ -1,30 +1,62 @@
 ---
 // apps/platform/src/components/dashboard/DailyQuestBanner.astro
+// Hero banner for the featured "Quest of the Day" — always sits at the top of the feed.
+// The purple gradient ensures high contrast for both light and dark themes.
+// Text is always white because it sits on a dark purple gradient — no dark: override needed.
 ---
 
-<div class="w-full rounded-[2rem] bg-gradient-to-r from-purple-600 to-purple-800 dark:to-[#1A1A24] border border-slate-300 dark:border-white/10 p-6 sm:p-8 flex items-center justify-between relative overflow-hidden shadow-[0_10px_40px_rgba(138,43,226,0.3)]">
-   <!-- Ambient pattern -->
-   <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
-   
-   <div class="relative z-10 flex flex-col gap-2 max-w-xl">
-      <div class="inline-flex max-w-fit px-3 py-1 bg-black/30 rounded-xl border border-white/10 shadow-sm items-center gap-2">
-         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-         <span class="font-mono text-[10px] uppercase text-cyan-400 tracking-widest leading-none">Quest of the Day</span>
-      </div>
-      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tighter leading-tight mt-1 text-white">Optimize the Database Schema</h1>
-      <p class="text-purple-100 text-sm leading-relaxed max-w-md">Analyze the payload and eliminate duplicate queries in the Forge Node registry. <span class="font-bold text-white">+500 XP Yield.</span></p>
-   </div>
+<div class="w-full rounded-[2rem] bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900 border border-purple-500/20 p-6 sm:p-8 flex items-center justify-between gap-6 relative overflow-hidden shadow-[0_10px_40px_rgba(138,43,226,0.25)]">
 
-   <div class="relative z-10 hidden sm:block shrink-0">
-      <button class="px-6 py-3 rounded-xl bg-cyan-400 text-slate-900 font-bold uppercase text-xs tracking-widest shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:-translate-y-1 hover:scale-[1.02] transition-all border border-transparent">
-         Start Mission
-      </button>
-   </div>
-   
-   <!-- Mobile button -->
-   <div class="absolute bottom-6 right-6 sm:hidden z-10">
-      <button class="w-12 h-12 rounded-xl bg-cyan-400 text-slate-900 flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.4)]">
-         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-      </button>
-   </div>
+  <!-- Ambient dot-grid overlay -->
+  <div
+    class="absolute inset-0 opacity-[0.08] pointer-events-none"
+    style="background-image: radial-gradient(circle at 1.5px 1.5px, white 1px, transparent 0); background-size: 20px 20px;"
+    aria-hidden="true"
+  ></div>
+  
+  <!-- Glow orb -->
+  <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-cyan-400/20 rounded-full blur-[60px] pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Text Content -->
+  <div class="relative z-10 flex flex-col gap-3 max-w-xl min-w-0">
+    
+    <!-- System pill -->
+    <div class="inline-flex max-w-fit items-center gap-2 px-3 py-1 bg-black/20 rounded-xl border border-white/10">
+      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" aria-hidden="true"></span>
+      <span class="font-mono text-[10px] uppercase text-cyan-300 tracking-widest leading-none">Quest of the Day</span>
+    </div>
+    
+    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tighter leading-tight text-white">
+      Optimize the Database Schema
+    </h1>
+    
+    <p class="text-purple-100 text-sm leading-relaxed max-w-md">
+      Analyze the payload and eliminate duplicate queries in the Forge Node registry.
+      <strong class="font-bold text-white">+500 XP Yield.</strong>
+    </p>
+  </div>
+
+  <!-- CTA (Desktop) -->
+  <div class="relative z-10 hidden sm:block shrink-0">
+    <button
+      type="button"
+      class="px-6 py-3 rounded-xl bg-cyan-400 text-slate-900 font-bold uppercase text-xs tracking-widest shadow-[0_0_20px_rgba(0,229,255,0.35)] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] transition-all duration-200"
+    >
+      Start Mission
+    </button>
+  </div>
+
+  <!-- CTA (Mobile — icon only) -->
+  <div class="relative z-10 sm:hidden shrink-0">
+    <button
+      type="button"
+      aria-label="Start mission"
+      class="w-12 h-12 rounded-xl bg-cyan-400 text-slate-900 flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.35)]"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </button>
+  </div>
+
 </div>

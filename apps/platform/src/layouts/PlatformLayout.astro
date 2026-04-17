@@ -1,6 +1,9 @@
 ---
 // apps/platform/src/layouts/PlatformLayout.astro
+// Core authenticated shell for all platform pages.
+// Uses top-nav architecture (no sidebar). Adaptive Light/Dark theme.
 import '../global.css';
+import BaseHead from '../components/BaseHead.astro';
 
 interface Props {
   title: string;
@@ -9,92 +12,136 @@ interface Props {
 
 const { title, currentPath = '/' } = Astro.props;
 
-const NAV_ITEMS = [
-  { path: '/', label: 'Explore' },
-  { path: '/quests', label: 'Quests' },
-  { path: '/community', label: 'Community' },
-  { path: '/armory', label: 'The Armory' }
-];
+interface NavItem {
+  path: string;
+  label: string;
+}
 
+const NAV_ITEMS: NavItem[] = [
+  { path: '/',          label: 'Explore'     },
+  { path: '/quests',    label: 'Quests'      },
+  { path: '/community', label: 'Community'   },
+  { path: '/armory',    label: 'The Armory'  },
+];
 ---
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <BaseHead />
     <title>{title} // CCS Forge</title>
-    <!-- We bring in Google Fonts matching brand.md -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white min-h-screen flex flex-col selection:bg-purple-500/30 font-sans antialiased">
-    
-    <!-- Top Navigation Bar -->
-    <header class="w-full fixed top-0 bg-white/80 dark:bg-white dark:bg-[#252634]/90 backdrop-blur-md border-b border-slate-200 dark:border-white/5 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-         
-         <!-- Logo & Primary Links -->
-         <div class="flex items-center gap-8">
-            <a href="/" class="flex items-center gap-3 group">
-               <div class="w-9 h-9 rounded-xl overflow-hidden ring-1 ring-purple-500/30 group-hover:ring-purple-400 transition-all shadow-[0_0_10px_rgba(138,43,226,0.2)]">
-                 <img src="https://res.cloudinary.com/dd6gz4moa/image/upload/v1776408761/Logo_ijocyn.jpg" alt="Code Bearers Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-               </div>
-               <span class="font-bold tracking-tight text-lg leading-none hidden sm:block">FORGE</span>
-            </a>
 
-            <nav class="hidden md:flex items-center gap-1">
-               {NAV_ITEMS.map((item) => {
-                 const isActive = currentPath === item.path;
-                 return (
-                   <a 
-                     href={item.path} 
-                     class={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                       isActive 
-                         ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/5' 
-                         : 'text-slate-600 dark:text-[#A0A0B0] hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5'
-                     }`}
-                   >
-                     {item.label}
-                   </a>
-                 );
-               })}
-            </nav>
-         </div>
+  <body class="bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white min-h-screen flex flex-col antialiased selection:bg-purple-500/30 transition-colors duration-300">
 
-         <!-- Right Utilities (Search, Profile) -->
-         <div class="flex items-center gap-4">
-            
-            <!-- Global Search Placeholder -->
-            <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-[#1A1A24] border border-slate-200 dark:border-white/5 rounded-xl text-slate-500 text-sm w-48 focus-within:border-purple-500/50 transition-colors">
-               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-               <input type="text" placeholder="Search quests..." class="bg-transparent border-none outline-none w-full text-slate-900 dark:text-white placeholder-slate-600" />
+    <!-- ═══════════════════════════════════════════════════════
+         TOP NAVIGATION BAR
+         Fixed, blurred, adaptive. Height = 64px (h-16).
+         Consistent with landing page Navbar height.
+    ════════════════════════════════════════════════════════════ -->
+    <header class="w-full fixed top-0 bg-white/80 dark:bg-[#252634]/90 backdrop-blur-md border-b border-slate-200 dark:border-white/5 z-50 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+
+        <!-- ─── LEFT: Brand + Nav ─── -->
+        <div class="flex items-center gap-6 lg:gap-8 min-w-0">
+          
+          <!-- Logo -->
+          <a href="/" class="flex items-center gap-3 group shrink-0">
+            <div class="w-9 h-9 rounded-xl overflow-hidden ring-1 ring-purple-500/30 group-hover:ring-purple-500 group-hover:shadow-[0_0_12px_rgba(138,43,226,0.3)] transition-all duration-300">
+              <img 
+                src="https://res.cloudinary.com/dd6gz4moa/image/upload/v1776408761/Logo_ijocyn.jpg" 
+                alt="Code Bearers Logo" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="eager"
+              />
             </div>
+            <span class="font-bold tracking-tight text-lg leading-none hidden sm:block group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              FORGE
+            </span>
+          </a>
 
-            <!-- Notification Bell -->
-            <button class="relative p-2 text-slate-600 dark:text-[#A0A0B0] hover:text-slate-900 dark:text-white transition-colors rounded-xl hover:bg-slate-100 dark:bg-white/5">
-               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-               <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full ring-2 ring-[#252634]"></span>
-            </button>
+          <!-- Primary Navigation -->
+          <nav class="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+            {NAV_ITEMS.map((item) => {
+              const isActive = currentPath === item.path;
+              return (
+                <a
+                  href={item.path}
+                  class={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/10'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
 
-            <!-- User Avatar Dropdown -->
-            <button class="flex items-center gap-2 pl-2 border-l border-slate-300 dark:border-white/10 group">
-               <div class="flex flex-col items-end hidden sm:flex">
-                  <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-purple-400 transition-colors leading-tight">Felix</span>
-                  <span class="text-[9px] text-cyan-400 font-mono flex items-center gap-1 uppercase tracking-widest"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></span> Lv. 42</span>
-               </div>
-               <div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-300 dark:border-white/10 overflow-hidden shrink-0 group-hover:border-purple-500/50 transition-colors">
-                  <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Felix" alt="Avatar" class="w-full h-full object-contain" />
-               </div>
-            </button>
+        <!-- ─── RIGHT: Search + Utilities ─── -->
+        <div class="flex items-center gap-3">
+          
+          <!-- Search bar (desktop only) -->
+          <label class="hidden lg:flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-400 w-52 cursor-text focus-within:ring-2 focus-within:ring-purple-500/40 focus-within:border-purple-500/50 transition-all">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="search"
+              placeholder="Search quests..."
+              aria-label="Search quests"
+              class="bg-transparent border-none outline-none w-full text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600"
+            />
+          </label>
 
-         </div>
+          <!-- Notification Bell -->
+          <button
+            type="button"
+            aria-label="View notifications"
+            class="relative w-9 h-9 flex items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            <!-- Unread dot -->
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full ring-2 ring-white dark:ring-[#252634]" aria-hidden="true"></span>
+          </button>
+
+          <!-- User Profile -->
+          <button
+            type="button"
+            aria-label="Open user menu"
+            class="flex items-center gap-2.5 pl-3 border-l border-slate-200 dark:border-white/10 group"
+          >
+            <div class="hidden sm:flex flex-col items-end">
+              <span class="text-xs font-bold leading-tight text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                Felix
+              </span>
+              <span class="text-[9px] font-mono text-cyan-600 dark:text-cyan-400 flex items-center gap-1 uppercase tracking-widest leading-tight">
+                <span class="w-1.5 h-1.5 bg-cyan-500 dark:bg-cyan-400 rounded-full animate-pulse" aria-hidden="true"></span>
+                Lv. 42
+              </span>
+            </div>
+            <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 overflow-hidden shrink-0 group-hover:border-purple-500/50 transition-colors">
+              <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Felix" alt="User avatar" class="w-full h-full object-contain" loading="lazy" />
+            </div>
+          </button>
+
+        </div>
       </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow pt-24 pb-16 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <slot />
+    <!-- ═══════════════════════════════════════════════════════
+         PAGE CONTENT
+         pt-16 to clear fixed navbar, pb-16 for footer breathing room.
+    ════════════════════════════════════════════════════════════ -->
+    <main class="flex-grow pt-16 pb-16 w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <slot />
+      </div>
     </main>
 
   </body>
