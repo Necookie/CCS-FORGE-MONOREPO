@@ -1,0 +1,264 @@
+---
+import PlatformLayout from '../layouts/PlatformLayout.astro';
+
+const profileStats = [
+  { label: 'Profile Completion', value: '78%', accent: 'purple' },
+  { label: 'Verified Links', value: '05 Active', accent: 'cyan' },
+  { label: 'Pinned Projects', value: '03 Live', accent: 'emerald' },
+  { label: 'Achievement Badges', value: '12 Earned', accent: 'amber' },
+];
+
+const identityFields = [
+  { label: 'Full Legal Name', value: 'Felix A. Aurelius', required: true },
+  { label: 'Display Name', value: 'Felix Aurelius', required: true },
+  { label: 'Username / Handle', value: '@felixforge', required: true },
+  { label: 'Institutional Email', value: 'felix.aurelius@university.edu', required: true },
+  { label: 'Student / Faculty ID Number', value: '2024-0012490', required: true },
+  { label: 'Academic Role', value: 'Undergraduate', required: true },
+  { label: 'Current Department', value: 'College of Computer Studies', required: true },
+  { label: 'Major / Specialization', value: 'BS in Computer Science', required: true },
+];
+
+const professionalFields = [
+  { label: 'Professional Headline', value: 'Full-Stack Developer | AI Researcher' },
+  { label: 'Skills & Expertise', value: 'React, Astro, TypeScript, Python, Supabase, UI Systems' },
+  { label: 'Portfolio URL', value: 'https://portfolio.codebearers.dev' },
+  { label: 'GitHub / LinkedIn', value: 'github.com/felixforge · linkedin.com/in/felixforge' },
+  { label: 'Curriculum Vitae (CV)', value: 'felix-aurelius-cv.pdf' },
+  { label: 'Expected Graduation Year', value: '2027' },
+];
+
+const socialFields = [
+  { label: 'Pronouns', value: 'He / Him' },
+  { label: 'Interests & Hobbies', value: 'Chess, Gaming, Coffee, Photography' },
+  { label: 'Social Links', value: 'Discord, Instagram, X, Spotify' },
+  { label: 'Personal Status', value: 'Grinding code and polishing demos.' },
+];
+
+const pinnedProjects = [
+  { name: 'NeuroCross', type: 'AI Research', status: 'Pinned' },
+  { name: 'VersaDocs', type: 'Productivity SaaS', status: 'Pinned' },
+  { name: 'Forge Registry', type: 'Campus Infrastructure', status: 'Featured' },
+];
+
+const achievements = [
+  'Dean’s Lister',
+  'Hackathon Finalist',
+  'Guild Mentor',
+  'Community Builder',
+];
+---
+
+<PlatformLayout title="Profile">
+  <section class="flex flex-col gap-8">
+    <header class="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_70px_rgba(15,23,42,0.08)] dark:border-white/5 dark:bg-[#252634] dark:shadow-[0_0_40px_rgba(138,43,226,0.12)] md:p-8">
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,229,255,0.14),transparent_32%),radial-gradient(circle_at_left,rgba(138,43,226,0.18),transparent_38%)]"></div>
+      <div class="relative flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
+        <div class="flex flex-col gap-6 md:flex-row md:items-end">
+          <div class="flex flex-col items-center gap-4">
+            <div class="flex h-24 w-24 items-center justify-center rounded-[2rem] border border-purple-500/20 bg-gradient-to-br from-purple-500/15 via-white to-cyan-500/15 text-3xl font-semibold text-slate-900 shadow-[0_0_30px_rgba(138,43,226,0.18)] dark:from-purple-500/20 dark:via-[#2B2C3A] dark:to-cyan-500/10 dark:text-white">
+              FA
+            </div>
+            <div class="flex h-14 w-32 items-center justify-center rounded-[1.5rem] border border-dashed border-slate-300 bg-slate-50 px-3 text-center text-xs text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
+              Cover / Header Photo
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="rounded-full border border-emerald-700/20 bg-emerald-700/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-emerald-700 dark:text-emerald-400">
+                Verified Academic Badge
+              </span>
+              <span class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
+                @felixforge
+              </span>
+            </div>
+
+            <div>
+              <h1 class="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+                Felix Aurelius
+              </h1>
+              <p class="mt-2 text-base font-medium text-purple-700 dark:text-purple-300">
+                Full-Stack Developer | AI Researcher
+              </p>
+              <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
+                Profile boilerplate covering official identity, professional academic context, optional social expression, badges, and project showcase placement for the platform.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <button class="rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/40 hover:text-slate-900 hover:shadow-[0_0_18px_rgba(0,229,255,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:text-white">
+            Preview Public Profile
+          </button>
+          <button class="rounded-xl border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-sm font-medium text-purple-700 shadow-[0_0_18px_rgba(138,43,226,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-purple-500/15 dark:text-purple-300">
+            Save Profile Draft
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section aria-label="Profile metrics" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {profileStats.map((stat) => (
+        <article class="rounded-[1.75rem] border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/20 hover:shadow-[0_0_28px_rgba(138,43,226,0.08)] dark:border-white/5 dark:bg-[#252634] dark:hover:border-purple-500/20 dark:hover:shadow-[0_0_28px_rgba(138,43,226,0.12)]">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">{stat.label}</p>
+          <p class="mt-4 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{stat.value}</p>
+        </article>
+      ))}
+    </section>
+
+    <div class="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)]">
+      <div class="flex flex-col gap-6">
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/5 dark:bg-[#252634] md:p-8">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Identity</p>
+              <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Required institutional profile</h2>
+            </div>
+            <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em] text-purple-700 dark:text-purple-300">
+              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-purple-500"></span>
+              Required
+            </span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+            {identityFields.map((field) => (
+              <label class="flex flex-col gap-2">
+                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{field.label}</span>
+                <input
+                  type="text"
+                  value={field.value}
+                  class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-300 focus:border-purple-500/40 focus:ring-4 focus:ring-purple-500/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                />
+              </label>
+            ))}
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/5 dark:bg-[#252634] md:p-8">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Professional & Academic</p>
+              <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Recommended career and research signals</h2>
+            </div>
+            <span class="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em] text-cyan-700 dark:text-cyan-300">
+              Recommended
+            </span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+            {professionalFields.map((field) => (
+              <label class={`flex flex-col gap-2 ${field.label === 'GitHub / LinkedIn' || field.label === 'Skills & Expertise' ? 'md:col-span-2' : ''}`}>
+                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{field.label}</span>
+                <input
+                  type="text"
+                  value={field.value}
+                  class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-300 focus:border-cyan-500/40 focus:ring-4 focus:ring-cyan-500/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                />
+              </label>
+            ))}
+
+            <label class="md:col-span-2 flex flex-col gap-2">
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Academic Bio</span>
+              <textarea
+                rows="5"
+                class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-300 focus:border-cyan-500/40 focus:ring-4 focus:ring-cyan-500/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
+              >I build web systems and AI-assisted workflows with a focus on usable software, campus infrastructure, and research-to-product execution.</textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/5 dark:bg-[#252634] md:p-8">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Social & Personal</p>
+              <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Optional personality and community layer</h2>
+            </div>
+            <span class="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
+              Optional
+            </span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+            {socialFields.map((field) => (
+              <label class={`flex flex-col gap-2 ${field.label === 'Personal Status' || field.label === 'Social Links' ? 'md:col-span-2' : ''}`}>
+                <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{field.label}</span>
+                <input
+                  type="text"
+                  value={field.value}
+                  class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-all duration-300 focus:border-amber-500/40 focus:ring-4 focus:ring-amber-500/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                />
+              </label>
+            ))}
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div class="flex h-32 items-center justify-center rounded-[1.5rem] border border-dashed border-slate-300 bg-slate-50 text-center text-sm text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
+              Profile Picture Upload
+            </div>
+            <div class="flex h-32 items-center justify-center rounded-[1.5rem] border border-dashed border-slate-300 bg-slate-50 text-center text-sm text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
+              Cover / Header Photo Upload
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/5 dark:bg-[#252634]">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Project Showcase</p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Pinned gallery boilerplate</h2>
+
+          <div class="mt-6 flex flex-col gap-3">
+            {pinnedProjects.map((project) => (
+              <article class="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_0_22px_rgba(0,229,255,0.12)] dark:border-white/10 dark:bg-white/5">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-medium text-slate-900 dark:text-white">{project.name}</p>
+                    <p class="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{project.type}</p>
+                  </div>
+                  <span class="rounded-full border border-slate-200 bg-white px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-600 dark:border-white/10 dark:bg-[#1A1A24] dark:text-slate-300">
+                    {project.status}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/5 dark:bg-[#252634]">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Achievement Badges</p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Recognition and status markers</h2>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            {achievements.map((achievement) => (
+              <span class="rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-purple-700 dark:text-purple-300">
+                {achievement}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/5 dark:bg-[#252634]">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Hybrid Status</p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Platform-specific signals</h2>
+
+          <div class="mt-6 flex flex-col gap-3">
+            <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 dark:border-white/10 dark:bg-white/5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Availability Toggle</p>
+              <p class="mt-2 text-sm font-medium text-slate-900 dark:text-white">Open to Collab</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 dark:border-white/10 dark:bg-white/5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Role Switcher</p>
+              <p class="mt-2 text-sm font-medium text-slate-900 dark:text-white">Academic / Serious</p>
+            </div>
+            <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 dark:border-white/10 dark:bg-white/5">
+              <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Verified Academic Badge Visibility</p>
+              <p class="mt-2 text-sm font-medium text-slate-900 dark:text-white">Visible</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</PlatformLayout>
