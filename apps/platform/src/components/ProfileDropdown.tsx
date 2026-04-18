@@ -7,6 +7,7 @@ interface ProfileDropdownProps {
 export default function ProfileDropdown({ email = 'User' }: ProfileDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const initial = email.charAt(0).toUpperCase();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -26,36 +27,35 @@ export default function ProfileDropdown({ email = 'User' }: ProfileDropdownProps
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 text-sm font-medium text-white hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-zinc-900 transition-colors"
+          className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-100 text-sm font-medium text-slate-900 transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-500/30 hover:bg-white hover:shadow-[0_0_18px_rgba(138,43,226,0.16)] focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-purple-500/30 dark:hover:bg-white/10"
           id="menu-button"
           aria-expanded={isOpen}
           aria-haspopup="true"
         >
-          {/* Default Avatar Placeholder */}
-          <span className="uppercase">{email.charAt(0)}</span>
+          <span className="uppercase">{initial}</span>
         </button>
       </div>
 
       {isOpen && (
         <div
-          className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-zinc-800 ring-1 ring-black ring-opacity-5 divide-y divide-zinc-700 focus:outline-none z-50 border border-zinc-700"
+          className="absolute right-0 z-50 mt-3 w-64 origin-top-right overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_24px_60px_rgba(15,23,42,0.12)] divide-y divide-slate-200 focus:outline-none dark:border-white/10 dark:bg-[#252634] dark:divide-white/10 dark:shadow-[0_0_32px_rgba(138,43,226,0.16)]"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex={-1}
         >
-          <div className="px-4 py-3" role="none">
-            <p className="text-sm text-zinc-300" role="none">
+          <div className="bg-[radial-gradient(circle_at_top_right,rgba(0,229,255,0.12),transparent_38%),radial-gradient(circle_at_left,rgba(138,43,226,0.16),transparent_36%)] px-4 py-4" role="none">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400" role="none">
               Signed in as
             </p>
-            <p className="text-sm font-medium text-white truncate" role="none">
+            <p className="mt-2 text-sm font-medium text-slate-900 truncate dark:text-white" role="none">
               {email}
             </p>
           </div>
           <div className="py-1" role="none">
             <a
               href="/profile"
-              className="text-zinc-300 hover:bg-zinc-700 hover:text-white block px-4 py-2 text-sm transition-colors"
+              className="block px-4 py-2.5 text-sm text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
               role="menuitem"
               tabIndex={-1}
             >
@@ -63,7 +63,7 @@ export default function ProfileDropdown({ email = 'User' }: ProfileDropdownProps
             </a>
             <a
               href="/settings"
-              className="text-zinc-300 hover:bg-zinc-700 hover:text-white block px-4 py-2 text-sm transition-colors"
+              className="block px-4 py-2.5 text-sm text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
               role="menuitem"
               tabIndex={-1}
             >
@@ -74,7 +74,7 @@ export default function ProfileDropdown({ email = 'User' }: ProfileDropdownProps
             <form method="POST" action="/api/auth/signout" role="none">
               <button
                 type="submit"
-                className="w-full text-left text-red-400 hover:bg-zinc-700 hover:text-red-300 block px-4 py-2 text-sm transition-colors"
+                className="block w-full px-4 py-2.5 text-left text-sm text-rose-600 transition-colors hover:bg-rose-500/10 hover:text-rose-700 dark:text-rose-300 dark:hover:bg-rose-500/10 dark:hover:text-rose-200"
                 role="menuitem"
                 tabIndex={-1}
               >

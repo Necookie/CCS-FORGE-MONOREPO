@@ -9,7 +9,7 @@ This document serves as the absolute source of truth for the **CCS Forge** ecosy
 ## 1. Core Philosophy
 
 1. **Information Density over Clutter:** The interface must handle complex data (leaderboards, Git-like histories, system logs) without overwhelming the user. Use generous padding, subtle demarcations, and precise typography to establish hierarchy.
-2. **Accessible by Default, Cinematic by Choice:** The application employs **Adaptive Theming**. The default state is a crisp, highly legible **Light Mode**. The toggle initiates a high-fidelity **Cinematic Dark Mode** utilizing deep space-grays.
+2. **Accessible by Default, Cinematic by Choice:** The application employs **Adaptive Theming**. The default state is a crisp, highly legible **Light Mode**. Dark Mode is opt-in only via the UI theme toggle and must never be auto-enabled on first visit.
 3. **The Glow Doctrine:** Eliminate standard, muddy black drop-shadows. Spatial depth is strictly established through vibrant, localized ambient glows (using shadows inheriting accent colors) and precise 1px borders.
 
 ---
@@ -82,6 +82,7 @@ Typography is key to the "developer-first" identity of Code Bearers. Never use s
 ### Accessibility & SEO
 - **Semantic HTML:** Strict adherence to `<section>`, `<article>`, `<nav>`, and single `<h1>` architectures payload per page.
 - **FOUC Prevention:** Theme-switching logic must be executed as an inline, synchronous `<script>` in the `<head>` checking `localStorage` before the DOM paints.
+- **Theme Default Rule:** If no stored preference exists, initialize `localStorage.theme` to `light` and ensure the root document does not carry the `dark` class.
 
 ### File Structure Topology
 - **`apps/landing`**: Static, zero-JS Astro application for the unauthenticated marketing layer.
