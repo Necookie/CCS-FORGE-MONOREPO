@@ -8,10 +8,13 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/node": "^10.0.5",
     "@astrojs/react": "latest",
     "@forge/config-tailwind": "workspace:*",
     "@forge/ui": "workspace:*",
     "@forge/utils": "workspace:*",
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.3",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "latest",
     "react": "^19.0.0",

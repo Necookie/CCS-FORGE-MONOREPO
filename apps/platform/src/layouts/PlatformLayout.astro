@@ -4,6 +4,9 @@
 // Uses top-nav architecture (no sidebar). Adaptive Light/Dark theme.
 import '../global.css';
 import BaseHead from '../components/BaseHead.astro';
+import ProfileDropdown from '../components/ProfileDropdown';
+
+import { supabaseClient } from '../lib/supabase';
 
 interface Props {
   title: string;
@@ -11,6 +14,9 @@ interface Props {
 }
 
 const { title, currentPath = '/' } = Astro.props;
+
+const supabase = supabaseClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
 
 interface NavItem {
   path: string;
@@ -110,26 +116,14 @@ const NAV_ITEMS: NavItem[] = [
             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full ring-2 ring-white dark:ring-[#252634]" aria-hidden="true"></span>
           </button>
 
-          <!-- User Profile -->
-          <button
-            type="button"
-            aria-label="Open user menu"
-            class="flex items-center gap-2.5 pl-3 border-l border-slate-200 dark:border-white/10 group"
-          >
-            <div class="hidden sm:flex flex-col items-end">
-              <span class="text-xs font-bold leading-tight text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                Felix
-              </span>
-              <span class="text-[9px] font-mono text-cyan-600 dark:text-cyan-400 flex items-center gap-1 uppercase tracking-widest leading-tight">
-                <span class="w-1.5 h-1.5 bg-cyan-500 dark:bg-cyan-400 rounded-full animate-pulse" aria-hidden="true"></span>
-                Lv. 42
-              </span>
-            </div>
-            <div class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 overflow-hidden shrink-0 group-hover:border-purple-500/50 transition-colors">
-              <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Felix" alt="User avatar" class="w-full h-full object-contain" loading="lazy" />
-            </div>
-          </button>
-
+          <!-- User Profile Dropdown -->
+          <div class="pl-3 border-l border-slate-200 dark:border-white/10">
+          {user ? (
+              <ProfileDropdown client:load email={user.email} />
+            ) : (
+              <a href={new URL('/login', import.meta.env.PUBLIC_LANDING_URL || 'http://localhost:4321').toString()} class="text-sm font-medium text-slate-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400">Log in</a>
+            )}
+          </div>
         </div>
       </div>
     </header>

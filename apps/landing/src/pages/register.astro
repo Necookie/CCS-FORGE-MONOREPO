@@ -1,0 +1,115 @@
+---
+import '../global.css';
+import BaseHead from '../components/BaseHead.astro';
+import Navbar from '../components/Navbar.astro';
+
+const success = Astro.url.searchParams.get('success') === 'true';
+const error = Astro.url.searchParams.get('error');
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead />
+    <title>Register | CCS Forge</title>
+    <meta name="description" content="Join Code Bearers and request workspace access." />
+  </head>
+  <body class="bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white transition-colors duration-300">
+    <Navbar />
+
+    <main class="flex min-h-screen items-center justify-center px-4 pt-24 pb-16">
+      <div class="w-full max-w-md">
+        <div class="bg-white dark:bg-[#252634] rounded-[2rem] border border-slate-200 dark:border-white/5 p-8 pt-10 pb-10 space-y-6 hover:-translate-y-1 transition-transform duration-500">
+          <div class="text-center">
+            <h1 class="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white">
+              Request <span class="text-purple-600 dark:text-purple-400">Clearance</span>
+            </h1>
+            {success ? (
+              <p class="mt-2 text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+                STATUS.VERIFICATION_SENT
+              </p>
+            ) : error ? (
+              <p class="mt-2 text-xs font-mono text-red-600 dark:text-red-400 uppercase tracking-widest">
+                {error}
+              </p>
+            ) : (
+              <p class="mt-2 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                STATUS.IDENTITY_REQUIRED
+              </p>
+            )}
+          </div>
+
+          {success ? (
+            <div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-500/30 rounded-xl p-5 text-center space-y-4">
+              <p class="text-sm text-emerald-800 dark:text-emerald-200 leading-relaxed">
+                A confirmation payload has been securely dispatched to your Signal ID.
+                Please confirm the uplink to activate your clearance.
+              </p>
+              <a href="/login" class="block w-full py-3 px-4 rounded-xl text-sm font-bold tracking-wide text-white bg-purple-600 hover:bg-purple-500 border border-purple-500 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] transition-all duration-300 text-center">
+                RETURN TO AUTH
+              </a>
+            </div>
+          ) : error ? (
+            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded-xl p-5 text-center space-y-4">
+              <p class="text-sm text-red-800 dark:text-red-200 leading-relaxed">
+                {error}
+              </p>
+              <a href="/register" class="block w-full py-3 px-4 rounded-xl text-sm font-bold tracking-wide text-white bg-purple-600 hover:bg-purple-500 border border-purple-500 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] transition-all duration-300 text-center">
+                TRY AGAIN
+              </a>
+            </div>
+          ) : (
+            <form action="/api/auth/register" method="post" class="space-y-5">
+              <div class="space-y-1">
+                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Signal ID (Email)
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  required
+                  autocomplete="email"
+                  placeholder="user@codebearers.com"
+                  class="block w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white px-4 py-3 text-sm font-mono placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all duration-300"
+                />
+              </div>
+
+              <div class="space-y-1">
+                <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Passphrase
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  required
+                  autocomplete="new-password"
+                  placeholder="********"
+                  class="block w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#1A1A24] text-slate-900 dark:text-white px-4 py-3 text-sm font-mono placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all duration-300"
+                />
+              </div>
+
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  class="w-full flex justify-center py-3 px-4 rounded-xl text-sm font-bold tracking-wide text-white bg-purple-600 hover:bg-purple-500 border border-purple-500 hover:shadow-[0_0_15px_rgba(138,43,226,0.4)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-[#252634] transition-all duration-300"
+                >
+                  GENERATE CLEARANCE
+                </button>
+              </div>
+            </form>
+          )}
+
+          {!success && (
+            <p class="text-sm text-slate-500 dark:text-slate-400 text-center">
+              Existing clearance?{' '}
+              <a href="/login" class="font-bold text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 transition-colors">
+                Initialize Uplink
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

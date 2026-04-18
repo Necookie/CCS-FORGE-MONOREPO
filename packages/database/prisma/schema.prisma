@@ -8,7 +8,8 @@ datasource db {
 }
 
 model User {
-  id          String       @id @default(uuid())
+  id          String       @id // Will match Supabase auth.users UUID
+  email       String       @unique
   role        String       @default("USER")
   points      Int          @default(0)
   submissions Submission[]
